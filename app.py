@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+import data
 app = Flask(__name__)
 
 def filter_query(item_list, query):
@@ -10,15 +11,10 @@ def filter_query(item_list, query):
 
 @app.route("/games")
 def get_games():
-    cars = {"suggestions": [
-        { "value": "United Arab Emirates", "data": "AE" },
-        { "value": "United Kingdom",       "data": "UK" },
-        { "value": "United States",        "data": "US" }
-    ]}
-    
+
     query = request.args.get("query")
-    filtered_cars = filter_query(cars, query)
-    return jsonify(filtered_cars)
+    games = data.get_games(query)
+    return jsonify(games)
 
 @app.route("/")
 def home():
