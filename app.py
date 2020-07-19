@@ -1,6 +1,11 @@
 from flask import Flask, render_template, jsonify, request
+from config import Config
+from forms import LoginForm
+
 import data
+
 app = Flask(__name__)
+app.config.from_object(Config)
 
 def filter_query(item_list, query):
     filtered_list = {"suggestions": []}
@@ -19,3 +24,9 @@ def get_games():
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    print(form.username.data)
+    return render_template('login.html', title='Sign In', form=form)
