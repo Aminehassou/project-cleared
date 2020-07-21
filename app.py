@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, flash, redirect
 from config import Config
 from forms import LoginForm
 
@@ -28,5 +28,8 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(form.username.data)
-    return render_template('login.html', title='Sign In', form=form)
+    if form.validate_on_submit():
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data), 'success' )
+        return redirect('/')
+    return render_template('login.html', form=form)
