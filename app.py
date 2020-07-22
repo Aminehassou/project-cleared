@@ -1,11 +1,15 @@
 from flask import Flask, render_template, jsonify, request, flash, redirect
 from config import Config
 from forms import LoginForm
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 import data
 
 app = Flask(__name__)
 app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 def filter_query(item_list, query):
     filtered_list = {"suggestions": []}
@@ -25,11 +29,10 @@ def get_games():
 def home():
     return render_template("index.html")
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data), 'success' )
+        flash("Succesfully logged in", "success" )
         return redirect('/')
-    return render_template('login.html', form=form)
+    return render_template("login.html", form=form)
