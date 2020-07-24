@@ -1,15 +1,10 @@
 from flask import Flask, render_template, jsonify, request, flash, redirect
-from config import Config
-from forms import LoginForm
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 
-import data
+from app.forms import LoginForm
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+from app.data import get_games
+from app import app
+
 
 def filter_query(item_list, query):
     filtered_list = {"suggestions": []}
@@ -19,10 +14,10 @@ def filter_query(item_list, query):
     return filtered_list
 
 @app.route("/games")
-def get_games():
+def browse_games():
 
     query = request.args.get("query")
-    games = data.get_games(query)
+    games = get_games(query)
     return jsonify(games)
 
 @app.route("/")
