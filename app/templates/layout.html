@@ -28,10 +28,15 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-      </li>
-
+      {% if current_user.is_anonymous %}
+        <li class="nav-item active">
+          <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+        </li>
+      {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
+        </li>
+      {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0 m r-auto">
       <input type="text" class="form-control" id="autocomplete">
