@@ -58,8 +58,17 @@ def login():
             next_page = url_for('home')
         return redirect(next_page)
     return render_template("login.html", form=form)
+
 @login_required
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    info = {"name": username, "games": 5, "cleared": 2, "clearing": 3}
+    return render_template("user.html", user=user, info=info)
+    
