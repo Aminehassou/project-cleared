@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 
 {% block content %}
+    {% if user == current_user %}
+    <a class="btn btn-secondary" href="{{ url_for('edit_profile') }}" role="button">Edit Profile</a>
+    {% endif %}
+
     <h6>User: {{ user.username }} <img class=profile src="{{ user.avatar(40) }}"></h6> 
     <h6>Games: {{ info["games"] }} </h6> 
     <h6>Cleared Games: {{ info["cleared"] }} </h6> 
