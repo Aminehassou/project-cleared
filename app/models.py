@@ -1,10 +1,31 @@
 
+import enum
 from app import db, login
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hashlib import md5
+class GameStatus(enum.Enum):
+    PLAYING = "Playing"
+    CLEARED = "Cleared"
+    FULL_CLEARED = "100% Cleared"
+    
+    @classmethod
+    def choices(cls):
+        return [(choice, choice.value) for choice in cls]
 
+    @classmethod
+    def coerce(cls, item):
+        if not item:
+            return GameStatus.PLAYING
+
+        return item if isinstance(item, cls) else GameStatus[item]
+    
+    def __str__(self):
+        return self.name
+
+    def __html__(self):
+        return self.value
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,6 +64,20 @@ class Game(db.Model):
                          default=datetime.utcnow, onupdate=datetime.utcnow)
     def __repr__(self):
         return '<Games {}>'.format(self.title)
+
+class User_game(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    clear_status = db.Column(db.Enum(GameStatus), default=GameStatus.PLAYING.value, nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+
+    created_at = db.Column(db.DateTime, nullable=False,
+                        default=datetime.utcnow)
+    modified_at = db.Column(db.DateTime, nullable=False,
+                         default=datetime.utcnow, onupdate=datetime.utcnow)
+    def __repr__(self):
+        return '<User_game {}>'.format(self.title)
 
 @login.user_loader
 def load_user(id):
