@@ -3,8 +3,8 @@ from flask import Flask, render_template, jsonify, request, flash, redirect, url
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.data import get_games
-from app.models import User
+from app.data import get_games, get_game_by_id
+from app.models import User, Game
 from app import app, db
 
 def filter_query(item_list, query):
@@ -70,6 +70,22 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@login_required
+@app.route('/game/<api_id>')
+def get_game(api_id):
+    game = Game.query.filter_by(id = api_id).first()
+    if not game:
+        game_info = get_game_by_id(api_id)
+        title = game_info[0]["title"]
+        platforms = []
+        for platform in game_info[0]["platform"]:
+            platforms.append(platform["name"])
+        game_obj = Game(api_id = api_id, title = title, platform = game_info[0]["platform"])
+        db.session.add(game_obj)
+        db.session.commit()
+    return render_template("game.html", game=game)
+
 
 @app.route('/user/<username>')
 @login_required

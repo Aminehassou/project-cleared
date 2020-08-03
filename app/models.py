@@ -55,7 +55,7 @@ class User(UserMixin, db.Model):
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    api_id = db.Column(db.String(255), primary_key=True)
+    api_id = db.Column(db.String(255), unique=True, nullable=False)
     title = db.Column(db.String(255))
     platform = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, nullable=False,
@@ -65,6 +65,21 @@ class Game(db.Model):
     def __repr__(self):
         return '<Games {}>'.format(self.title)
 
+class Platform(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    api_id = db.Column(db.String(255), unique=True, nullable=False)
+    title = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, nullable=False,
+                        default=datetime.utcnow)
+    modified_at = db.Column(db.DateTime, nullable=False,
+                         default=datetime.utcnow, onupdate=datetime.utcnow)
+    def __repr__(self):
+        return '<Platform {}>'.format(self.title)
+
+game_platform = db.Table('game_platform',
+    db.Column('game_id', db.Integer, db.ForeignKey('game.id')),
+    db.Column('platform_id', db.Integer, db.ForeignKey('platform.id'))
+)
 class User_game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     clear_status = db.Column(db.Enum(GameStatus), default=GameStatus.PLAYING.value, nullable=False)
@@ -77,7 +92,7 @@ class User_game(db.Model):
     modified_at = db.Column(db.DateTime, nullable=False,
                          default=datetime.utcnow, onupdate=datetime.utcnow)
     def __repr__(self):
-        return '<User_game {}>'.format(self.title)
+        return '<User_game {}>'.format(self.clear_status)
 
 @login.user_loader
 def load_user(id):
