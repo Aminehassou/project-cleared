@@ -57,7 +57,6 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     api_id = db.Column(db.String(255), unique=True, nullable=False)
     title = db.Column(db.String(255))
-    platform = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
     modified_at = db.Column(db.DateTime, nullable=False,

@@ -2,9 +2,10 @@ import datetime
 from flask import Flask, render_template, jsonify, request, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 from werkzeug.urls import url_parse
+from sqlalchemy.exc import IntegrityError
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.data import get_games, get_game_by_id
-from app.models import User, Game
+from app.models import User, Game, Platform
 from app import app, db
 
 def filter_query(item_list, query):
@@ -25,6 +26,8 @@ def browse_games():
 
     query = request.args.get("query")
     games = get_games(query)
+    for game in games["suggestions"]:
+        game["url"] = url_for("get_game", api_id = game["data"])
     return jsonify(games)
 
 @app.route("/")
@@ -74,15 +77,22 @@ def logout():
 @login_required
 @app.route('/game/<api_id>')
 def get_game(api_id):
-    game = Game.query.filter_by(id = api_id).first()
+    game = Game.query.filter_by(api_id = api_id).first()
+    print(game)
     if not game:
         game_info = get_game_by_id(api_id)
-        title = game_info[0]["title"]
-        platforms = []
-        for platform in game_info[0]["platform"]:
-            platforms.append(platform["name"])
-        game_obj = Game(api_id = api_id, title = title, platform = game_info[0]["platform"])
-        db.session.add(game_obj)
+        name = game_info[0]["name"]
+        for platform in game_info[0]["platforms"]:
+            try:
+                p = Platform(api_id = platform["id"], title = platform["name"])
+                db.session.add(p)
+                db.session.commit()
+
+            except IntegrityError as e:
+                db.session.rollback()
+                print("You can't do this operation")
+        game = Game(api_id = api_id, title = name)
+        db.session.add(game)
         db.session.commit()
     return render_template("game.html", game=game)
 
