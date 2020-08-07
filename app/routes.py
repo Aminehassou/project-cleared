@@ -74,14 +74,16 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
+@app.route('/game_data/<api_id>')
 @login_required
-@app.route('/game/<api_id>')
 def get_game(api_id):
     game = Game.query.filter_by(api_id = api_id).first()
     print(game)
     if not game:
         game_info = get_game_by_id(api_id)
         name = game_info[0]["name"]
+        platforms_list = []
         for platform in game_info[0]["platforms"]:
             try:
                 p = Platform(api_id = platform["id"], title = platform["name"])
@@ -90,12 +92,22 @@ def get_game(api_id):
 
             except IntegrityError as e:
                 db.session.rollback()
+                p = Platform.query.filter_by(api_id = platform["id"]).first()
                 print("You can't do this operation")
+            platforms_list.append(p)
+
         game = Game(api_id = api_id, title = name)
+        game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()
-    return render_template("game.html", game=game)
+    return redirect(url_for("display_game", id = game.id))
 
+
+@app.route('/game/<id>')
+@login_required
+def display_game(id):
+    game = Game.query.filter_by(id = id).first()
+    return render_template("game.html", game=game)
 
 @app.route('/user/<username>')
 @login_required
@@ -117,3 +129,7 @@ def edit_profile():
 
     return render_template('edit_profile.html',
                            form=form)
+@login_required
+@app.route('/game', methods=['GET', 'POST'])
+def add_game():
+    return render_template("add_game.html")
