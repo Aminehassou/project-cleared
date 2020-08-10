@@ -3,7 +3,7 @@ from flask import Flask, render_template, jsonify, request, flash, redirect, url
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 from werkzeug.urls import url_parse
 from sqlalchemy.exc import IntegrityError
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddGameForm
 from app.data import get_games, get_game_by_id
 from app.models import User, Game, Platform
 from app import app, db
@@ -130,6 +130,10 @@ def edit_profile():
     return render_template('edit_profile.html',
                            form=form)
 @login_required
-@app.route('/game', methods=['GET', 'POST'])
-def add_game():
-    return render_template("add_game.html")
+@app.route('/insert/<id>', methods=['GET', 'POST'])
+def add_game(id):
+    form = AddGameForm()
+    game = Game.query.filter_by(id = id).first()
+    for platform in game.platforms:
+        form.platform.choices.append(platform.title)
+    return render_template("add_game.html", form=form)
