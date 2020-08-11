@@ -12,7 +12,7 @@ class GameStatus(enum.Enum):
     
     @classmethod
     def choices(cls):
-        return [(choice, choice.value) for choice in cls]
+        return [(choice.name, choice.value) for choice in cls]
 
     @classmethod
     def coerce(cls, item):
@@ -33,6 +33,7 @@ class User_game(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+    platform_id = db.Column(db.Integer, db.ForeignKey('platform.id'))
 
     created_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)

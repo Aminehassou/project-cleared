@@ -82,19 +82,20 @@ def get_game(api_id):
     print(game)
     if not game:
         game_info = get_game_by_id(api_id)
-        name = game_info[0]["name"]
+        name = game_info["name"]
         platforms_list = []
-        for platform in game_info[0]["platforms"]:
-            try:
-                p = Platform(api_id = platform["id"], title = platform["name"])
-                db.session.add(p)
-                db.session.commit()
+        if "platforms" in game_info:
+            for platform in game_info["platforms"]:
+                try:
+                    p = Platform(api_id = platform["id"], title = platform["name"])
+                    db.session.add(p)
+                    db.session.commit()
 
-            except IntegrityError as e:
-                db.session.rollback()
-                p = Platform.query.filter_by(api_id = platform["id"]).first()
-                print("You can't do this operation")
-            platforms_list.append(p)
+                except IntegrityError as e:
+                    db.session.rollback()
+                    p = Platform.query.filter_by(api_id = platform["id"]).first()
+                    print("You can't add this platform (it already exists)")
+                platforms_list.append(p)
 
         game = Game(api_id = api_id, title = name)
         game.platforms = platforms_list
@@ -134,6 +135,14 @@ def edit_profile():
 def add_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
+    has_platforms = True
+    if not game.platforms:
+        has_platforms = False
+
     for platform in game.platforms:
-        form.platform.choices.append(platform.title)
-    return render_template("add_game.html", form=form)
+        form.platform.choices.append((platform.id, platform.title))
+    if form.validate_on_submit():
+        print(form.platform.data)
+        print(form.status.data)
+
+    return render_template("add_game.html", form=form, has_platforms=has_platforms)

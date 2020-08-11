@@ -15,4 +15,5 @@ def get_games(query):
 def get_game_by_id(id):
     r = requests.get("https://api-v3.igdb.com/games/",  
                 headers = {"user-key": Config.KEY}, data = 'fields name, platforms.name; where id = {}; limit 1;'.format(id))
-    return r.json()
+    print("game json", r.json())
+    return r.json()[0]
