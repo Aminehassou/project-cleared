@@ -28,8 +28,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class AddGameForm(FlaskForm):
-    platform = SelectField('Platform', choices=[])
-    status = SelectField('Status', choices=GameStatus.choices(), coerce=GameStatus.coerce, validators=[DataRequired()])
+    platform = SelectField('Platform', choices=[], coerce=int)
+    status = SelectField('Status', choices=GameStatus.choices(), coerce=GameStatus.coerce)
     submit = SubmitField('Add Game')
 
 class EditProfileForm(FlaskForm):

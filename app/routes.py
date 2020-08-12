@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 from sqlalchemy.exc import IntegrityError
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddGameForm
 from app.data import get_games, get_game_by_id
-from app.models import User, Game, Platform
+from app.models import User, Game, Platform, User_game
 from app import app, db
 
 def filter_query(item_list, query):
@@ -79,7 +79,6 @@ def logout():
 @login_required
 def get_game(api_id):
     game = Game.query.filter_by(api_id = api_id).first()
-    print(game)
     if not game:
         game_info = get_game_by_id(api_id)
         name = game_info["name"]
@@ -142,7 +141,9 @@ def add_game(id):
     for platform in game.platforms:
         form.platform.choices.append((platform.id, platform.title))
     if form.validate_on_submit():
-        print(form.platform.data)
-        print(form.status.data)
+        print("PLATFORM DATA:", form.platform.data)
+        #user = User_game(clear_status=form.status.data, user_id=id)
+
+        flash("You have successfully registered!", "success")
 
     return render_template("add_game.html", form=form, has_platforms=has_platforms)
