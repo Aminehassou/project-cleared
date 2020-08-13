@@ -12,6 +12,8 @@ class GameStatus(enum.Enum):
     
     @classmethod
     def choices(cls):
+        for choice in cls:
+            print("choice:", type(choice), choice.value, choice.name)
         return [(choice.name, choice.value) for choice in cls]
 
     @classmethod
@@ -23,6 +25,13 @@ class GameStatus(enum.Enum):
     
     def __str__(self):
         return self.name
+
+    def __html__(self):
+        return self.value
+
+    
+    def __str__(self):
+        return str(self.value)
 
     def __html__(self):
         return self.value

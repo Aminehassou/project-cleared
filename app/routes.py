@@ -141,9 +141,10 @@ def add_game(id):
     for platform in game.platforms:
         form.platform.choices.append((platform.id, platform.title))
     if form.validate_on_submit():
-        print("PLATFORM DATA:", form.platform.data)
-        #user = User_game(clear_status=form.status.data, user_id=id)
-
+        print("PLATFORM DATA:", form.platform.data, current_user.id)
+        user = User_game(clear_status=form.status.data, game_id=id, platform_id=form.platform.data, user_id=current_user.id )
+        db.session.add(user)
+        db.session.commit()
         flash("You have successfully registered!", "success")
 
     return render_template("add_game.html", form=form, has_platforms=has_platforms)
