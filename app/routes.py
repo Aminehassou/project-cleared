@@ -140,11 +140,14 @@ def add_game(id):
 
     for platform in game.platforms:
         form.platform.choices.append((platform.id, platform.title))
-    if form.validate_on_submit():
-        print("PLATFORM DATA:", form.platform.data, current_user.id)
-        user = User_game(clear_status=form.status.data, game_id=id, platform_id=form.platform.data, user_id=current_user.id )
-        db.session.add(user)
-        db.session.commit()
-        flash("You have successfully registered!", "success")
+    user_game = User_game.query.filter_by(game_id=id, platform_id=form.platform.data, user_id=current_user.id).first()
+    if not user_game:
+        if form.validate_on_submit():
+            user = User_game(clear_status=form.status.data, game_id=id, platform_id=form.platform.data, user_id=current_user.id )
+            db.session.add(user)    
+            db.session.commit()
+            flash("You have successfully added the game!", "success")
+    else:
+        flash("This game already exists in your list!", "danger")
 
     return render_template("add_game.html", form=form, has_platforms=has_platforms)
