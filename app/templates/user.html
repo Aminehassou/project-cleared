@@ -9,6 +9,7 @@
     <h6>Games: {{ info["games"] }} </h6> 
     <h6>Cleared Games: {{ info["cleared"] }} </h6> 
     <h6>Ongoing Games: {{ info["clearing"] }} </h6> 
- 
+    <a class="btn btn-primary" href="{{ url_for('display_user_games') }}" role="button">Display Game List</a>
+
 
 {% endblock %}
