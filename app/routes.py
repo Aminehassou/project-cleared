@@ -82,6 +82,7 @@ def get_game(api_id):
     if not game:
         game_info = get_game_by_id(api_id)
         name = game_info["name"]
+        cover_id = game_info["cover"]["image_id"]
         platforms_list = []
         if "platforms" in game_info:
             for platform in game_info["platforms"]:
@@ -96,7 +97,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name)
+        game = Game(api_id = api_id, title = name, image_id = cover_id)
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()
