@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39" height="39" viewBox="0 0 39 39">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #131313;
+      }
+
+      .cls-3 {
+        fill-rule: evenodd;
+      }
+    </style>
+    <image id="image" width="39" height="39" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAnCAYAAACMo1E1AAAARUlEQVRYhe3OMQGAAAzAsIF/z8NDeXYkCvLs7s5R79XYyP0gV8lVcpVcJVfJVXKVXCVXyVVylVwlV8lVcpVcJVfdzc3MBwTjBEo7lt1JAAAAAElFTkSuQmCC"/>
+  </defs>
+  <use id="Background" xlink:href="#image"/>
+  <use xlink:href="#image"/>
+  <rect class="cls-1" x="-249" y="-42" width="183" height="92"/>
+  <rect class="cls-2" width="39" height="39"/>
+  <path id="J" class="cls-3" d="M16.365,7v4.018H20.2V24.169a4.787,4.787,0,0,1-1.322,3.41A5.067,5.067,0,0,1,15.012,29v4.018a8.554,8.554,0,0,0,6.53-2.6,8.781,8.781,0,0,0,2.453-6.247V7H16.365Z"/>
+</svg>
