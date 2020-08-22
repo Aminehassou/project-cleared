@@ -1,31 +1,59 @@
-{% extends "layout.html" %}
+{% extends "themed_layout.html" %}
 
 {% block content %}
-<div class="container min-vh-100 mt-5">
-    <div class="justify-content-center align-items-center">
-        <form class="col-12 needs-validation" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                
-                {{ form.username.label }}<br>
-                {{ form.username(size=32, class='form-control form-control-lg', placeholder='Enter your username') }}
-                {% for error in form.username.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-
-            </div>
-            <div class="form-group">
-                {{ form.password.label }}<br>
-                {{ form.password(size=32, class='form-control form-control-lg', placeholder='Enter your password') }}
-                {% for error in form.password.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-            </div>
-            <div class="form-check">{{ form.remember_me(class='form-check-input') }} {{ form.remember_me.label(class='form-check-label') }}</div>
-            <div></div>
-            <h6>New User? <a href="{{ url_for('register') }}">Click to Register!</a></h6>
-            <div class="form-group">{{ form.submit(class='btn btn-primary') }}</div>
-        </form>
-    </div>
-</div>
+      <!-- Login -->
+      <div class="login">
+        <div class="container">
+           <div class="row justify-content-center align-items-center d-flex vh-100">
+              <div class="col-lg-5 mx-auto">
+                 <div class="osahan-login p-5 bg-dark">
+                    <div class="text-center mb-4">
+                       <a href="index.html"><img src="{{ url_for('static', filename='img/logo.svg') }}" alt=""></a>
+                       <h5 class="font-weight-bold mt-3">Welcome Back</h5>
+                       <p class="text-muted">Don't miss your next opportunity. Sign in to stay updated on your professional world.</p>
+                    </div>
+                    <form action="index.html">
+                       <div class="form-group">
+                          <label class="mb-1">Username</label>
+                          <div class="position-relative icon-form-control">
+                             <input type="email" class="form-control">
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label class="mb-1">Password</label>
+                          <div class="position-relative icon-form-control">
+                             <input type="password" class="form-control">
+                          </div>
+                       </div>
+                       <div class="custom-control custom-checkbox mb-3">
+                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                          <label class="custom-control-label text-white-50" for="customCheck1">Remember password</label>
+                       </div>
+                       <button class="btn btn-warning btn-lg btn-block text-uppercase" type="submit"> Log in now </button>
+                       <div class="text-center mt-3 border-bottom pb-3">
+                          <p class="small text-muted">Or login with</p>
+                          <div class="row">
+                             <div class="col-6">
+                                <button type="button" class="btn btn-outline-instagram bg-dark-2 btn-block"><i class="feather-instagram"></i> Instagram</button>
+                             </div>
+                             <div class="col-6">
+                                <button type="button" class="btn btn-outline-facebook bg-dark-2 btn-block"><i class="feather-facebook"></i> Facebook</button>
+                             </div>
+                          </div>
+                       </div>
+                       <div class="py-3 d-flex align-item-center">
+                          <a class="text-muted" href="forgot-password.html">Forgot password?</a>
+                          <span class="ml-auto"> New to Jarda? <a class="text-muted" href="sign-up.html">Join now</a></span>
+                       </div>
+                    </form>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- End Login -->
+        </div>
+           </main>
+        </div>
+     </div>
 {% endblock %}

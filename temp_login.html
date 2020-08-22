@@ -1,6 +1,3 @@
-{% extends "themed_layout.html" %}
-
-{% block content %}
 <div class="container min-vh-100 mt-5">
     <div class="justify-content-center align-items-center">
         <form class="col-12 needs-validation" method="post" novalidate>
@@ -15,27 +12,16 @@
 
             </div>
             <div class="form-group">
-                {{ form.email.label }}<br>
-                {{ form.email(size=32, class='form-control form-control-lg', placeholder='Enter your email') }}
-                {% for error in form.email.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-            </div>
-            <div class="form-group">
                 {{ form.password.label }}<br>
                 {{ form.password(size=32, class='form-control form-control-lg', placeholder='Enter your password') }}
                 {% for error in form.password.errors %}
                 <h6 class="text-danger">[{{ error }}]</h6>
                 {% endfor %}
             </div>
-            <div class="form-group">
-                {{ form.password2.label }}<br>
-                {{ form.password2(size=32, class='form-control form-control-lg', placeholder='Confirm your password') }}
-                {% for error in form.password2.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-            <div class="form-group mt-2">{{ form.submit(class='btn btn-primary') }}</div>
+            <div class="form-check">{{ form.remember_me(class='form-check-input') }} {{ form.remember_me.label(class='form-check-label') }}</div>
+            <div></div>
+            <h6>New User? <a href="{{ url_for('register') }}">Click to Register!</a></h6>
+            <div class="form-group">{{ form.submit(class='btn btn-primary') }}</div>
         </form>
     </div>
 </div>
-{% endblock %}

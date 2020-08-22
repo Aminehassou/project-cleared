@@ -11,6 +11,8 @@
       <link href="{{ url_for('static', filename='css/feather.css') }}" rel="stylesheet" type="text/css">
       <!-- Custom styles for this template -->
       <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+      <link href="{{ url_for('static', filename='css/themed_styles.css') }}" rel="stylesheet" />
+
       <!-- Bootstrap core CSS -->
       <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
       <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
@@ -180,7 +182,29 @@
             </li>
          </ul>
       </nav>
+      <div id="layoutSidenav">
 
+         <div id="layoutSidenav_content">
+            <main>
+               {% with messages = get_flashed_messages(with_categories=true) %}
+               {% if messages %}
+               {% set category = messages[0][0] %}
+               <ul class = "alert alert-{{category}} alert-dismissible">
+                 {% for category, message in messages %}
+                   <li>{{message}}</li>
+                 {% endfor %}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </ul>
+               {% endif %}
+               {% endwith %}
+             
+               {% block content %}
+               {% endblock %}
+            </main>
+         </div>
+      </div>
       <!-- Bootstrap core JavaScript -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
