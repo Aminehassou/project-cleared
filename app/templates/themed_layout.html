@@ -12,10 +12,12 @@
       <!-- Custom styles for this template -->
       <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
       <link href="{{ url_for('static', filename='css/themed_styles.css') }}" rel="stylesheet" />
+      <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
 
       <!-- Bootstrap core CSS -->
+      
       <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-      <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
       <link href="{{ url_for('static', filename='css/jqautocomplete.css') }}" rel="stylesheet">
 
    </head>
@@ -182,9 +184,9 @@
             </li>
          </ul>
       </nav>
-      <div id="layoutSidenav">
+      <div>
 
-         <div id="layoutSidenav_content">
+         <div>
             <main>
                {% with messages = get_flashed_messages(with_categories=true) %}
                {% if messages %}
