@@ -67,7 +67,10 @@ ul.alert {
 }
 .profile {
 	border-radius: 50%;
-  } 
+  }
+.sb-topnav {
+	padding-left: 15px !important;
+} 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
