@@ -1,41 +1,61 @@
 {% extends "themed_layout.html" %}
 
 {% block content %}
-<div class="container min-vh-100 mt-5">
-    <div class="justify-content-center align-items-center">
-        <form class="col-12 needs-validation" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                
-                {{ form.username.label }}<br>
-                {{ form.username(size=32, class='form-control form-control-lg', placeholder='Enter your username') }}
-                {% for error in form.username.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
+      <!-- Register -->
 
-            </div>
-            <div class="form-group">
-                {{ form.email.label }}<br>
-                {{ form.email(size=32, class='form-control form-control-lg', placeholder='Enter your email') }}
-                {% for error in form.email.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-            </div>
-            <div class="form-group">
-                {{ form.password.label }}<br>
-                {{ form.password(size=32, class='form-control form-control-lg', placeholder='Enter your password') }}
-                {% for error in form.password.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-            </div>
-            <div class="form-group">
-                {{ form.password2.label }}<br>
-                {{ form.password2(size=32, class='form-control form-control-lg', placeholder='Confirm your password') }}
-                {% for error in form.password2.errors %}
-                <h6 class="text-danger">[{{ error }}]</h6>
-                {% endfor %}
-            <div class="form-group mt-2">{{ form.submit(class='btn btn-primary') }}</div>
-        </form>
-    </div>
-</div>
+      <div class="login">
+        <div class="container">
+           <div class="row justify-content-center align-items-center d-flex vh-100">
+              <div class="col-lg-5 mx-auto">
+                 <div class="osahan-login p-5 bg-dark">
+                    <div class="text-center mb-4">
+                       <a href="index.html"><img src="{{ url_for('static', filename='img/logo.svg') }}" alt=""></a>
+                       <h5 class="font-weight-bold mt-3">Welcome Back</h5>
+                       <p class="text-muted">Don't miss your next opportunity. Sign in to stay updated on your professional world.</p>
+                    </div>
+                    <form method="post" novalidate>
+                     {{ form.hidden_tag() }}
+                        <div class="form-group">
+                           {{ form.username.label(class='mb-1') }}
+                           {{ form.username(size=32, class='form-control position-relative icon-form-control', placeholder='Enter your username') }}
+                           {% for error in form.username.errors %}
+                           <h6 class="text-danger">[{{ error }}]</h6>
+                           {% endfor %}
+                        </div >
+                        <div class="form-group">
+                           {{ form.email.label(class='mb-1') }}
+                           {{ form.email(size=32, class='form-control position-relative icon-form-control', placeholder='Enter your email') }}
+                           {% for error in form.email.errors %}
+                           <h6 class="text-danger">[{{ error }}]</h6>
+                           {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label(class='mb-1') }}
+                            {{ form.password(size=32, class='form-control position-relative icon-form-control', placeholder='Enter your password') }}
+                            {% for error in form.password.errors %}
+                            <h6 class="text-danger">[{{ error }}]</h6>
+                            {% endfor %}
+                         </div>
+                         <div class="form-group">
+                            {{ form.password2.label(class='mb-1') }}
+                            {{ form.password2(size=32, class='form-control position-relative icon-form-control', placeholder='Confirm your password') }}
+                            {% for error in form.password2.errors %}
+                            <h6 class="text-danger">[{{ error }}]</h6>
+                            {% endfor %}
+                         </div>
+                       <div class="form-group">{{ form.submit(class='btn btn-warning btn-lg btn-block') }}</div>
+                       <div class="py-3 d-flex align-item-center">
+                          <span class="ml-auto"> Already have an account? <a class="text-muted" href="login.html">Login here</a></span>
+                       </div>
+                    </form>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- End Register -->
+        </div>
+           </main>
+        </div>
+     </div>
 {% endblock %}
