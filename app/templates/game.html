@@ -1,12 +1,394 @@
 {% extends "themed_layout.html" %}
+
 {% block content %}
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-light shadow-sm osahan-nav-top bg-white">
+        <a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt=""></a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="feather-menu"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control shadow-none border-0" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="button">
+                    <i class="feather-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown no-arrow d-sm-none">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="feather-search mr-2"></i>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div class="dropdown-menu dropdown-menu-right p-3 shadow-sm animated--grow-in" aria-labelledby="searchDropdown">
+                    <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 shadow-none" placeholder="Search people, jobs and more..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn" type="button">
+                            <i class="feather-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="feather-message-square"></i>
+                    <!-- Counter - Alerts -->
+                    <span class="badge badge-danger badge-counter">8</span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+                    <h6 class="dropdown-header">
+                    Message Center
+                    </h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="img/p1.png" alt="">
+                        <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div class="font-weight-bold overflow-hidden">
+                        <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                    </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="img/p2.png" alt="">
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                    </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="img/p3.png" alt="">
+                        <div class="status-indicator bg-warning"></div>
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                    </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="img/p4.png" alt="">
+                        <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                    </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1 osahan-list-dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="feather-bell"></i>
+                    <!-- Counter - Alerts -->
+                    <span class="badge badge-info badge-counter">6</span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow-sm">
+                    <h6 class="dropdown-header">
+                    Alerts Center
+                    </h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="feather-download-cloud text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">December 12, 2020</div>
+                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                    </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-success">
+                            <i class="feather-edit text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">December 7, 2020</div>
+                        $290.29 has been deposited into your account!
+                    </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="feather-folder text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">December 2, 2020</div>
+                        Spending Alert: We've noticed unusually high spending for your account.
+                    </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                </div>
+            </li>
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow ml-1 osahan-profile-dropdown">
+                <a class="nav-link dropdown-toggle pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle" src="img/p13.png">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow-sm">
+                    <div class="p-3 d-flex align-items-center">
+                    <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="img/user.png" alt="">
+                        <div class="status-indicator bg-success"></div>
+                    </div>
+                    <div class="font-weight-bold">
+                        <div class="text-truncate">Gurdeep Osahan</div>
+                        <div class="small text-gray-500">UI/UX Designer</div>
+                    </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="account.html"><i class="feather-edit mr-1"></i> My Account</a>
+                    <a class="dropdown-item" href="favorite.html"><i class="feather-heart mr-1"></i> Favorite</a>
+                    <a class="dropdown-item" href="coupons.html"><i class="feather-user mr-1"></i> Coupons</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="sign-in.html"><i class="feather-log-out mr-1"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+        </nav>
+        <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon"><i class="feather-home"></i></div>
+                        Homepage
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Store</div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="feather-shopping-bag"></i></div>
+                        Store
+                        <div class="sb-sidenav-collapse-arrow"><i class="feather-chevron-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="store.html">Store List</a>
+                            <a class="nav-link" href="store-single.html">Store Single</a>
+                        </nav>
+                    </div>
+                    <div class="sb-sidenav-menu-heading">News</div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNews" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="feather-book-open"></i></div>
+                        News
+                        <div class="sb-sidenav-collapse-arrow"><i class="feather-chevron-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseNews" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="news.html">News List</a>
+                            <a class="nav-link" href="news-single.html">News Single</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="feather-folder-plus"></i></div>
+                        Pages
+                        <div class="sb-sidenav-collapse-arrow"><i class="feather-chevron-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                Authentication
+                                <div class="sb-sidenav-collapse-arrow"><i class="feather-chevron-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="sign-in.html">Sign In</a>
+                                <a class="nav-link" href="sign-up.html">Sign Up</a>
+                                <a class="nav-link" href="forgot-password.html">Forgot Password</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                Error
+                                <div class="sb-sidenav-collapse-arrow"><i class="feather-chevron-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="404.html">404 Not Found</a>
+                                </nav>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="sb-sidenav-menu-heading">Addons</div>
+                    <a class="nav-link" href="components.html">
+                        <div class="sb-nav-link-icon"><i class="feather-code"></i></div>
+                        Components
+                    </a>
+                    <a class="nav-link" href="faq.html">
+                        <div class="sb-nav-link-icon"><i class="feather-help-circle"></i></div>
+                        FAQ
+                    </a>
+                    <a class="nav-link" href="contact.html">
+                        <div class="sb-nav-link-icon"><i class="feather-phone"></i></div>
+                        Contact
+                    </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Askbootstrap
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid-fluid">
+        <!-- Navigation -->
+        <section class="py-5 store-single-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="position-sticky">
+                    <div class="gradient-1 p-4 mb-1">
+                        <img class="img-fluid" src="img/g-logo.png" alt="">
+                    </div>
+                    <h3 class="mt-4 mb-3">{{ game.title }}
+                    </h3>
+                    </p>
+                    <div class="d-flex mb-4">
+                        <div class="btn btn-warning col-12"><i class="feather-download-cloud mr-1"></i> Add</div>
+                    </div>
+                    <div class="bg-dark p-3 sidebar-widget mb-4">
+                        <div class="nav nav-pills flex-column lavalamp">
+                            <a class="nav-link" href="#about"><i class="feather-home mr-1"></i> About Game</a>
 
-{% if current_user.is_anonymous %}
-    <h6>Title: {{ game.title }}</h6> 
-{% else %}
-    <a class="btn btn-primary" href="{{ url_for('add_game', id=game.id)}}" role="button">Add Game</a>
-{% endif %}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                    <div class="col-lg-12">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                <!-- Slide One - Set the background image for this slide in the line below -->
+                                <div class="carousel-item active">
+                                <div class="osahan-slider">
+                                    <div class="bg-dark">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-12">
+                                            <img class="img-fluid" src="img/slider/5.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- Slide Two - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                <div class="osahan-slider">
+                                    <div class="bg-dark">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-12">
+                                            <img class="img-fluid" src="img/slider/6.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- Slide Three - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                <div class="osahan-slider">
+                                    <div class="bg-dark">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-12">
+                                            <img class="img-fluid" src="img/slider/7.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <div class="pt-4" id="about"></div>
+                        <h5 class="mb-3 mt-4"> About Game</h5>
+                        <div class="p-5 bg-dark">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                <div class="list-icon mb-3">
+                                    <p class="text-muted mb-1">Developer</p>
+                                    <p class="text-dark">ABC Games</p>
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                <div class="list-icon mb-3">
+                                    <p class="text-muted mb-1">Publisher</p>
+                                    <p class="text-dark">XYZ Games</p>
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                <div class="list-icon mb-3">
+                                    <p class="text-muted mb-1">Release Date</p>
+                                    <p class="text-dark">Jul 25, 2020</p>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                <div class="list-icon mb-3">
+                                    <p class="text-muted mb-1">Tags</p>
+                                    <p class="text-dark">Shooter, Multiplayer, Single Player
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                <div class="list-icon mb-3">
+                                    <p class="text-muted mb-1">Rating</p>
+                                    <p class="text-dark">TEEN</p>
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                <div class="list-icon mb-3">
+                                    <p class="text-muted mb-1">Platform</p>
+                                    {% for platform in game.platforms %}
+                                    <p class="text-dark">{{ platform.title}}</p>
+                                    {% endfor %}
+                                </div>
+                                </div>
+                            </div>
 
+                        </div>
 
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
 
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="js/custom.js"></script>
+    </body>
 {% endblock %}

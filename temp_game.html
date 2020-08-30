@@ -1,0 +1,12 @@
+{% extends "themed_layout.html" %}
+{% block content %}
+
+{% if current_user.is_anonymous %}
+    <h6>Title: {{ game.title }}</h6> 
+{% else %}
+    <a class="btn btn-primary" href="{{ url_for('add_game', id=game.id)}}" role="button">Add Game</a>
+{% endif %}
+
+
+
+{% endblock %}
