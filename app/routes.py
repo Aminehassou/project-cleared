@@ -8,12 +8,20 @@ from app.data import get_games, get_game_by_id
 from app.models import User, Game, Platform, User_game
 from app import app, db
 
-def filter_query(item_list, query):
-    filtered_list = {"suggestions": []}
-    for item in item_list["suggestions"]:
-        if query.lower() in item["value"].lower():
-            filtered_list["suggestions"].append({"value": item["value"]})
-    return filtered_list
+def filter_devs(query):
+    developers = []
+    publishers = []
+    for company in query["involved_companies"]:
+        if company["developer"]:
+            developers.append(company["company"]["name"])
+            #dev_info.update({"developer": company["company"]["name"] })
+        if company["publisher"]:
+            publishers.append(company["company"]["name"])
+            #dev_info.update({"publisher": company["company"]["name"] })
+    return {
+        "developers": ", ".join(developers),
+        "publishers": ", ".join(publishers)
+    }
 
 @app.before_request
 def before_request():
@@ -80,7 +88,9 @@ def logout():
 def get_game(api_id):
     game = Game.query.filter_by(api_id = api_id).first()
     if not game:
+        
         game_info = get_game_by_id(api_id)
+        dev_info = filter_devs(game_info)
         name = game_info["name"]
         cover_id = game_info["cover"]["image_id"]
         platforms_list = []
@@ -97,7 +107,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name, image_id = cover_id)
+        game = Game(api_id = api_id, title = name, image_id = cover_id, developer = dev_info["developers"], publisher = dev_info["publishers"])
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()

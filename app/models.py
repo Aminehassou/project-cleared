@@ -85,6 +85,8 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     api_id = db.Column(db.String(255), unique=True, nullable=False)
     title = db.Column(db.String(255))
+    developer = db.Column(db.String(255))
+    publisher = db.Column(db.String(255))
     image_id = db.Column(db.String(255), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
