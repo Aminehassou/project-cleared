@@ -2,6 +2,7 @@ import datetime
 from flask import Flask, render_template, jsonify, request, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required, LoginManager
 from werkzeug.urls import url_parse
+from time import strftime
 from sqlalchemy.exc import IntegrityError
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddGameForm
 from app.data import get_games, get_game_by_id
@@ -92,6 +93,7 @@ def get_game(api_id):
         game_info = get_game_by_id(api_id)
         dev_info = filter_devs(game_info)
         name = game_info["name"]
+        date = datetime.datetime.fromtimestamp(game_info["first_release_date"]).strftime('%Y-%m-%d %H:%M:%S')
         cover_id = game_info["cover"]["image_id"]
         platforms_list = []
         if "platforms" in game_info:
@@ -107,7 +109,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name, image_id = cover_id, developer = dev_info["developers"], publisher = dev_info["publishers"])
+        game = Game(api_id = api_id, title = name, image_id = cover_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date)
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()

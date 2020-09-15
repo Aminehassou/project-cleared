@@ -88,6 +88,7 @@ class Game(db.Model):
     developer = db.Column(db.String(255))
     publisher = db.Column(db.String(255))
     image_id = db.Column(db.String(255), unique=True, nullable=False)
+    initial_release_date = db.Column(db.DateTime, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
     modified_at = db.Column(db.DateTime, nullable=False,
