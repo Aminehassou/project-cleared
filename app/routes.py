@@ -91,6 +91,7 @@ def get_game(api_id):
     if not game:
         
         game_info = get_game_by_id(api_id)
+        print(game_info)
         dev_info = filter_devs(game_info)
         name = game_info["name"]
         date = datetime.datetime.fromtimestamp(game_info["first_release_date"]).strftime('%Y-%m-%d %H:%M:%S')
