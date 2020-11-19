@@ -12,7 +12,7 @@ from app import app, db
 def filter_devs(query):
     developers = []
     publishers = []
-    for company in query["involved_companies"]:
+    for company in query.get("involved_companies", []):
         if company["developer"]:
             developers.append(company["company"]["name"])
             #dev_info.update({"developer": company["company"]["name"] })
@@ -91,6 +91,7 @@ def get_game(api_id):
     if not game:
         
         game_info = get_game_by_id(api_id)
+        print(game_info)
         print(game_info)
         dev_info = filter_devs(game_info)
         name = game_info["name"]
