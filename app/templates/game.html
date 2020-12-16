@@ -15,18 +15,52 @@
                         </h3>
                         </p>
                         <div class="d-flex mb-4">
-                            <div class="btn btn-warning col-12"><i
-                                    class="feather-download-cloud mr-1"></i> Add</div>
-                        </div>
-                        <div class="bg-dark p-3 sidebar-widget mb-4">
-                            <div class="nav nav-pills flex-column lavalamp">
-                                <a class="nav-link" href="#about"><i class="feather-home mr-1"></i>
-                                    About Game</a>
-
-                            </div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-warning col-12" data-toggle="modal" data-target="#exampleModal">
+                                <i class="feather-download-cloud mr-1"></i> Add Game To List
+                            </button>                            
                         </div>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add game To List</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form class="col-12 needs-validation" method="post" novalidate>
+                            <div class="modal-body">
+                                {{ form.hidden_tag() }}
+                                {% if form.errors %}
+                                {{ form.errors }}
+                                {% endif %}
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        {{ form.status.label }}<br>
+                                        {{ form.status(class='form-control', placeholder='Status') }}
+                    
+                                    </div>
+                                    {% if has_platforms %}
+                                    <div class="form-group">
+                                        {{ form.platform.label }}<br>
+                                        {{ form.platform(class='form-control', placeholder='Platform') }}
+                                    
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                {{ form.submit(class='btn btn-primary') }}
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>               
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-lg-12">
@@ -50,7 +84,7 @@
                             <h5 class="mb-3 mt-4"> About Game</h5>
                             <div class="p-5 bg-dark">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-6 col-md-6">
                                         <div class="list-icon mb-3">
                                             <p class="text-muted mb-1">Developer</p>
                                             {% if game.developer %}
@@ -60,7 +94,7 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-6 col-md-6">
                                         <div class="list-icon mb-3">
                                             <p class="text-muted mb-1">Publisher</p>
                                             {% if game.publisher %}
@@ -70,21 +104,19 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
                                         <div class="list-icon mb-3">
                                             <p class="text-muted mb-1">Release Date</p>
                                             <p class="text-dark">{{ game.initial_release_date.strftime("%B %d, %Y") }}</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-6 col-md-6">
                                         <div class="list-icon mb-3">
                                             <p class="text-muted mb-1">Platform</p>
-                                            {% for platform in game.platforms %}
-                                            <div class="text-dark">{{ platform.title}}</div>
-                                            {% endfor %}
+                                            <div class="text-dark">{{ platforms }}</div>
                                         </div>
                                     </div>
                                 </div>

@@ -118,11 +118,27 @@ def get_game(api_id):
     return redirect(url_for("display_game", id = game.id))
 
 
-@app.route('/game/<id>')
+@app.route('/game/<id>', methods=['GET', 'POST'])
 @login_required
 def display_game(id):
+    form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
-    return render_template("game.html", game=game)
+    has_platforms = True
+    if not game.platforms:
+        has_platforms = False
+    for platform in game.platforms:
+        form.platform.choices.append((platform.id, platform.title))
+    user_game = User_game.query.filter_by(game_id=id, platform_id=form.platform.data, user_id=current_user.id).first()
+    if not user_game:
+        if form.validate_on_submit():
+            user = User_game(clear_status=form.status.data, game_id=id, platform_id=form.platform.data, user_id=current_user.id )
+            db.session.add(user)    
+            db.session.commit()
+            flash("You have successfully added the game!", "success")
+    else:
+        flash("This game already exists in your list!", "danger")
+    platforms = ", ".join([platform.title for platform in game.platforms])
+    return render_template("game.html", game=game, platforms=platforms, form=form, has_platforms = has_platforms)
 
 @app.route('/user/<username>')
 @login_required
@@ -160,7 +176,6 @@ def edit_profile():
 @login_required
 @app.route('/insert/<id>', methods=['GET', 'POST'])
 def add_game(id):
-    form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
     has_platforms = True
     if not game.platforms:
