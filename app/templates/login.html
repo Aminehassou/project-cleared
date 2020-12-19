@@ -36,7 +36,7 @@
                        <div class="form-group">{{ form.submit(class='btn btn-warning btn-lg btn-block') }}</div>
 
                        <div class="py-3 d-flex align-item-center">
-                          <a class="text-muted" href="forgot-password.html">Forgot password?</a>
+                          <a class="text-muted" href="{{ url_for('reset_password_request') }}">Forgot password?</a>
                           <span class="ml-auto"> New? <a class="text-muted" href="register.html">Join now</a></span>
                        </div>
                     </form>
