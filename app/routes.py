@@ -175,19 +175,14 @@ def display_game(id):
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     games = user.games
-    info = {"name": username, "games": 5, "cleared": 2, "clearing": 3}
-    return render_template("user.html", user=user, info=info, games = games)
+    return render_template("user.html", user=user, games = games)
 
 @app.route('/user/games')
 @login_required
 def display_user_games():
     user_games = User_game.query.filter_by(user_id = current_user.id).all()
-    user = User.query.filter_by(id = current_user.id).first()  
-    games = user.games
-    
-    print(user_games, games)
 
-    return render_template("profile_games.html", user_games=user_games, games=games)
+    return render_template("profile_games.html", game_info=user_games)
     
 
 @app.route('/edit_profile', methods=['GET', 'POST'])

@@ -1,11 +1,11 @@
 {% extends "themed_layout.html" %}
 {% block content %}
 
-{% for i in range(user_games|length)  %}
+{% for game_data in game_info %}
 
-    {{ user_games[i].clear_status }}
-    {{ games[i].title }}
-    <img class=game_cover src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ games[i].image_id }}.jpg"></h6> 
+    {{ game_data.clear_status }}
+    {{ game_data.game.title }}
+    <img class=game_cover src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ game_data.game.image_id }}.jpg"></h6> 
     <br>
 {% endfor %}
 

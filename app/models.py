@@ -50,6 +50,9 @@ class User_game(db.Model):
                         default=datetime.utcnow)
     modified_at = db.Column(db.DateTime, nullable=False,
                          default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user = db.relationship('User', backref='user')
+    game = db.relationship('Game', backref='game')
     def __repr__(self):
         return '<User_game {}>'.format(self.clear_status)
 
