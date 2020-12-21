@@ -114,6 +114,9 @@ class Game(db.Model):
     modified_at = db.Column(db.DateTime, nullable=False,
                          default=datetime.utcnow, onupdate=datetime.utcnow)
     platforms = db.relationship('Platform', secondary=game_platform, backref='games')
+    
+    def get_image_url(self):
+        return f"https://images.igdb.com/igdb/image/upload/t_cover_big/{self.image_id}.png"
 
     def __repr__(self):
         return '<Games {}>'.format(self.title)

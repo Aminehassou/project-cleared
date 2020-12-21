@@ -9,7 +9,32 @@
                             {% include 'profile_sticky.html' %}
                         </div>
                     </div>
-                    <div class="col-lg-9">yo</div>
+                    <div class="col-lg-9">
+                        <div class="d-flex align-item-center title mb-3">
+                            <h5 class="m-0 font-weight-normal">About Me</h5>
+                        </div>
+                        <div class="mb-3 p-3 bg-dark">{{user.about_me}}</div>
+                        <div class="d-flex align-item-center title">
+                            <h5 class="m-0 font-weight-normal">Games ({{user.games|length}})</h5>
+                        </div>
+                        <div>
+                            <div class="row">
+                                {% for game in user.games %}
+                                <div class="col-lg-2">
+                                    <div class="osahan-card mt-3">
+                                       <a href="store-single.html">
+                                          <img class="img-fluid" src="{{game.get_image_url()}}" alt="">
+                                          <div class="osahan-card-body mt-3">
+                                             <h6 class="text-dark mb-1">{{game.title}}</h6>
+                                             <p class="m-0 text-muted">{{game.clear_status}}</p>
+                                          </div>
+                                       </a>
+                                    </div>
+                                </div>
+                                {% endfor %}                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

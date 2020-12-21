@@ -174,8 +174,7 @@ def display_game(id):
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    games = user.games
-    return render_template("user.html", user=user, games = games)
+    return render_template("user.html", user=user)
 
 @app.route('/user/games')
 @login_required

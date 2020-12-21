@@ -1,13 +1,40 @@
 {% extends "themed_layout.html" %}
 {% block content %}
-
-{% for game_data in game_info %}
-
-    {{ game_data.clear_status }}
-    {{ game_data.game.title }}
-    <img class=game_cover src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ game_data.game.image_id }}.jpg"></h6> 
-    <br>
-{% endfor %}
+<div class="container-fluid-fluid">
+    <section class="py-5 account-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="position-sticky">
+                        {% include 'profile_sticky.html' %}
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="d-flex align-item-center title mb-3">
+                        <h5 class="m-0 font-weight-normal">Games</h5>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="osahan-card">
+                                   <a href="store-single.html">
+                                      <img class="img-fluid" src="img/slider/1.jpg" alt="">
+                                      <div class="bg-primary text-center p-1 text-white">COUPON CODE - 2020COUPON
+                                      </div>
+                                      <div class="osahan-card-body mt-3">
+                                         <h6 class="text-dark mb-1">Pathway</h6>
+                                         <p class="m-0 text-muted">Free Now - Jun 25 at 08:30 PM</p>
+                                      </div>
+                                   </a>
+                                </div>
+                             </div>                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>    
 
 
 
