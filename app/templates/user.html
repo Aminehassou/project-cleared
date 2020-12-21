@@ -19,14 +19,14 @@
                         </div>
                         <div>
                             <div class="row">
-                                {% for game in user.games %}
+                                {% for u_game in user_game %}
                                 <div class="col-lg-2">
                                     <div class="osahan-card mt-3">
                                        <a href="store-single.html">
-                                          <img class="img-fluid" src="{{game.get_image_url()}}" alt="">
+                                          <img class="img-fluid" src="{{u_game.game.get_image_url()}}" alt="">
                                           <div class="osahan-card-body mt-3">
-                                             <h6 class="text-dark mb-1">{{game.title}}</h6>
-                                             <p class="m-0 text-muted">{{game.clear_status}}</p>
+                                             <h6 class="text-dark mb-1">{{u_game.game.title}}</h6>
+                                             <p class="m-0 text-muted">{{u_game.clear_status}} ({{u_game.platform.title}})</p>
                                           </div>
                                        </a>
                                     </div>
