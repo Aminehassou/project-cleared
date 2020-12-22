@@ -70,7 +70,19 @@ ul.alert {
   }
 .sb-topnav {
 	padding-left: 15px !important;
-} 
+}
+.playing {
+	/* Blue */
+	filter: invert(9%) sepia(96%) saturate(6955%) hue-rotate(238deg) brightness(113%) contrast(120%);
+}
+.cleared {
+	/* Dark Green */
+	filter: invert(11%) sepia(32%) saturate(1278%) hue-rotate(77deg) brightness(101%) contrast(89%);
+}
+.cleared100 {
+	/* Light Green */
+	filter: invert(41%) sepia(85%) saturate(773%) hue-rotate(73deg) brightness(91%) contrast(84%);
+}
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
