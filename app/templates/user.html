@@ -26,16 +26,61 @@
                                           <img class="img-fluid" src="{{u_game.game.get_image_url()}}" alt="">
                                           <div class="osahan-card-body mt-3">
                                              <h6 class="text-dark mb-1">{{u_game.game.title}}</h6>
-                                             <p class="m-0 text-muted">{{u_game.platform.title}}</p>
-                                             {% if u_game.clear_status.name == u_game.clear_status.FULL_CLEARED.name %}
-                                             <p class="m-0 text-muted cleared100"> {{u_game.clear_status}} <img src="{{url_for('static', filename='fonts/gamepad.svg')}}"></p>
-                                             {% elif u_game.clear_status.name == u_game.clear_status.CLEARED.name %}
-                                             <p class="m-0 text-muted cleared"> {{u_game.clear_status}} <img src="{{url_for('static', filename='fonts/gamepad.svg')}}"></p>
-                                             {% else %}
-                                             <p class="m-0 text-muted playing"> {{u_game.clear_status}} <img src="{{url_for('static', filename='fonts/gamepad.svg')}}"></p>
-                                             {% endif %}
                                           </div>
                                        </a>
+                                       <p class="m-0 text-muted">{{u_game.platform.title}}</p>
+                                       <div class="row">
+                                           <div class="col-8">
+                                              {% if u_game.clear_status.name == u_game.clear_status.FULL_CLEARED.name %}
+                                              <p class="m-0 text-muted cleared100"> {{u_game.clear_status}} <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></p>
+                                              {% elif u_game.clear_status.name == u_game.clear_status.CLEARED.name %}
+                                              <p class="m-0 text-muted cleared"> {{u_game.clear_status}} <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></p>
+                                              {% else %}
+                                              <p class="m-0 text-muted playing"> {{u_game.clear_status}} <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></p>
+                                              {% endif %}
+                                           </div>
+                                           <div class="col-4 text-right">
+                                              <a data-toggle="modal" data-target="#exampleModal" class="edit-game">Edit</a>
+                                           </div>
+                                           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">Add game To List</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <form class="col-12 needs-validation" method="post" novalidate>
+                                                    <div class="modal-body">
+                                                        {{ form.hidden_tag() }}
+                                                        {% if form.errors %}
+                                                        {{ form.errors }}
+                                                        {% endif %}
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                {{ form.status.label }}<br>
+                                                                {{ form.status(class='form-control', placeholder='Status') }}
+                                            
+                                                            </div>
+                                                            {% if has_platforms %}
+                                                            <div class="form-group">
+                                                                {{ form.platform.label }}<br>
+                                                                {{ form.platform(class='form-control', placeholder='Platform') }}
+                                                            
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        {{ form.submit(class='btn btn-primary') }}
+                                                    </div>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>  
+                                       </div>                                      
                                     </div>
                                 </div>
                                 {% endfor %}                                

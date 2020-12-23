@@ -170,24 +170,18 @@ def display_game(id):
     platforms = ", ".join([platform.title for platform in game.platforms])
     return render_template("game.html", game=game, platforms=platforms, form=form, has_platforms = has_platforms)
 
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
+    form = AddGameForm()
     user = User.query.filter_by(username=username).first_or_404()
     user_game = User_game.query.filter_by(user_id = user.id).all()
-    return render_template("user.html", user=user, user_game=user_game)
-
-@app.route('/user/games')
-@login_required
-def display_user_games():
-    user_games = User_game.query.filter_by(user_id = current_user.id).all()
-
-    return render_template("profile_games.html", game_info=user_games)
-    
+    return render_template("user.html", user=user, user_game=user_game, form=form)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    user = User.query.filter_by(username=current_user.username).first_or_404()
     form = EditProfileForm(obj=current_user, original_username=current_user.username) 
     if form.validate_on_submit():
         current_user.username = form.username.data
@@ -197,7 +191,7 @@ def edit_profile():
         return redirect(url_for('edit_profile'))
 
     return render_template('edit_profile.html',
-                           form=form)
+                           form=form, user=user)
 @login_required
 @app.route('/insert/<id>', methods=['GET', 'POST'])
 def add_game(id):

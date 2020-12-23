@@ -31,13 +31,6 @@ class GameStatus(enum.Enum):
     def __html__(self):
         return self.value
 
-    
-    def __str__(self):
-        return str(self.value)
-
-    def __html__(self):
-        return self.value
-
 class User_game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     clear_status = db.Column(db.Enum(GameStatus), default=GameStatus.PLAYING.value, nullable=False)

@@ -71,6 +71,7 @@ ul.alert {
 .sb-topnav {
 	padding-left: 15px !important;
 }
+
 .playing {
 	/* Blue */
 	filter: invert(9%) sepia(96%) saturate(6955%) hue-rotate(238deg) brightness(113%) contrast(120%);
