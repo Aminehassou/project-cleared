@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required, L
 from werkzeug.urls import url_parse
 from time import strftime
 from sqlalchemy.exc import IntegrityError
-from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, EditProfileForm, AddGameForm
+from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, EditProfileForm, AddGameForm, EditGameForm
 from app.data import get_games, get_game_by_id
 from app.models import User, Game, Platform, User_game
 from app.email import send_password_reset_email
@@ -173,10 +173,22 @@ def display_game(id):
 @app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
-    form = AddGameForm()
     user = User.query.filter_by(username=username).first_or_404()
     user_game = User_game.query.filter_by(user_id = user.id).all()
+    form = EditGameForm()
     return render_template("user.html", user=user, user_game=user_game, form=form)
+
+@app.route('/edit_game_info', methods=['POST'])
+@login_required
+def edit_game_info():
+    form = EditGameForm() 
+    if form.validate_on_submit():
+        edited_game = User_game.query.filter_by(id=form.user_game_id.data).first()
+        form.populate_obj(edited_game)
+        db.session.commit()
+        flash('Your changes have been saved.', "success")
+    return redirect(url_for("user", username=current_user.username))
+
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required

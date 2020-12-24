@@ -40,46 +40,14 @@
                                               {% endif %}
                                            </div>
                                            <div class="col-4 text-right">
-                                              <a data-toggle="modal" data-target="#exampleModal" class="edit-game">Edit</a>
-                                           </div>
-                                           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="exampleModalLabel">Add game To List</h5>
-                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                  </button>
-                                                </div>
-                                                <form class="col-12 needs-validation" method="post" novalidate>
-                                                    <div class="modal-body">
-                                                        {{ form.hidden_tag() }}
-                                                        {% if form.errors %}
-                                                        {{ form.errors }}
-                                                        {% endif %}
-                                                        <div class="form-group">
-                                                            <div class="form-group">
-                                                                {{ form.status.label }}<br>
-                                                                {{ form.status(class='form-control', placeholder='Status') }}
-                                            
-                                                            </div>
-                                                            {% if has_platforms %}
-                                                            <div class="form-group">
-                                                                {{ form.platform.label }}<br>
-                                                                {{ form.platform(class='form-control', placeholder='Platform') }}
-                                                            
-                                                            </div>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        {{ form.submit(class='btn btn-primary') }}
-                                                    </div>
-                                                </form>
-                                              </div>
-                                            </div>
-                                          </div>  
+                                              <a data-toggle="modal"
+                                                 data-game-name="{{u_game.game.title}}"
+                                                 data-status-id="{{u_game.clear_status.name}}"
+                                                 data-platform="{{u_game.platform.title}}" 
+                                                 data-user-game-id="{{u_game.id}}" 
+                                                 data-target="#edit-game" class="edit-game" href="javascript:;" title="Modify Clear Status"><i class="feather-edit mr-1"></i>
+                                                </a>
+                                           </div> 
                                        </div>                                      
                                     </div>
                                 </div>
@@ -91,5 +59,42 @@
             </div>
         </section>
     </div>    
-
+    <div class="modal fade" id="edit-game" tabindex="-1" role="dialog" aria-labelledby="edit-gameLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="edit-gameLabel">Edit game info</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form class="col-12 needs-validation" method="post" action="{{url_for('edit_game_info')}}" novalidate>
+                <div class="modal-body">
+                    {{ form.hidden_tag() }}
+                    {% if form.errors %}
+                    {{ form.errors }}
+                    {% endif %}
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Game</label><br>
+                            <div id="game-name"><input type="text" class="form-control" readonly disabled></div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.clear_status.label }}<br>
+                            {{ form.clear_status(id="status", class='form-control', placeholder='Status') }}
+                        </div>
+                        <div class="form-group">
+                            <label>Platform</label><br>
+                            <div id="platform"><input type="text" class="form-control" readonly disabled></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{ form.submit(class='btn btn-primary') }}
+                </div>
+            </form>
+          </div>
+        </div>
+      </div> 
 {% endblock %}
