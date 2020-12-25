@@ -5,10 +5,10 @@
 <div class="bg-dark p-3 sidebar-widget mb-4">
    <div class="nav nav-pills flex-column lavalamp">
       {% if current_user.username == user.username %}
-      <a class="nav-link" href="{{url_for('edit_profile')}}"><i class="feather-edit mr-1"></i>
+      <a class="nav-link" href="{{url_for('edit_profile')}}"><i class="feather-edit-3 mr-1"></i>
          Edit Account</a>
       {% endif %}
-      <a class="nav-link" href="{{url_for('user', username=user.username)}}"><i class="feather-user mr-1"></i> Account</a>
+      <a class="nav-link" href="{{url_for('user', username=user.username)}}"><i class="feather-user mr-1"></i> Profile</a>
 
 
    </div>
