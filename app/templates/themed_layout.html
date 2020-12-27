@@ -26,8 +26,14 @@
       <nav class="sb-topnav navbar navbar-expand navbar-light shadow-sm osahan-nav-top bg-white">
          <!-- Navbar Search-->
          <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-               <input type="text" class="form-control shadow-none border-0" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2" id="autocomplete">
+            <div class="input-group game-search">
+               <input type="text"
+                      autocomplete="off" 
+                      class="form-control shadow-none border-0" 
+                      placeholder="Search..." 
+                      aria-label="Search" 
+                      aria-describedby="basic-addon2" 
+                      id="autocomplete">
                <div class="input-group-append">
                   <button class="btn btn-dark" type="button">
                   <i class="feather-search"></i>
@@ -116,9 +122,9 @@
       <!-- Bootstrap core JavaScript -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/typeahead.bundle.min.js') }}"></script>    
       <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
       <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/jquery.autocomplete.min.js') }}"></script>    
 
 
    </body>

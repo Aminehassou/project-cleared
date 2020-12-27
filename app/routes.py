@@ -35,9 +35,11 @@ def before_request():
 def browse_games():
 
     query = request.args.get("query")
+    for a in request.args:
+        print(a, request.args.get(a))
     games = get_games(query)
-    for game in games["suggestions"]:
-        game["url"] = url_for("get_game", api_id = game["data"])
+    for game in games:
+        game["url"] = url_for("get_game", api_id = game["id"])
     return jsonify(games)
 
 @app.route("/")

@@ -27,7 +27,6 @@ body {
 	line-height: 30px;
 	outline: medium none;
 	padding: 8px 12px;
-	width: 396px;
 }
 .typeahead {
 	background-color: #FFFFFF;
@@ -48,11 +47,14 @@ body {
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	margin-top: 12px;
 	padding: 8px 0;
-	width: 422px;
+	width: 340px;
 }
 .tt-suggestion {
-	font-size: 22px;  /* Set suggestion dropdown font size */
-	padding: 3px 20px;
+	font-size: 15px;  /* Set suggestion dropdown font size */
+	padding: 3px 10px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .tt-suggestion:hover {
 	cursor: pointer;
@@ -88,6 +90,10 @@ ul.alert {
 	/* Light Green */
 	filter: invert(41%) sepia(85%) saturate(773%) hue-rotate(73deg) brightness(91%) contrast(84%);
 }
+.game-search input.form-control {
+	width: 300px;
+}
+
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;

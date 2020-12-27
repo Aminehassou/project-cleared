@@ -4,14 +4,15 @@ import requests
 import json
 
 def get_games(query):
-    l = {"suggestions": []}
+    l = []
     r = requests.post("https://api.igdb.com/v4/games",  
                 headers = {"Client-ID": Config.CLIENT_ID, "Authorization": "Bearer {}".format(Config.API_AUTH)}, data = 'fields name, platforms.name, cover.image_id; where name ~ *"{}"* & rating != null; sort rating desc; limit 10;'.format(query))
     request = r.json()
-    
-    
     for item in request:
-        l["suggestions"].append({"value": item["name"], "data": item["id"]})
+        print(item)
+        if "cover" not in item:
+            item["cover"] = {"image_id": "co1q1f"}
+        l.append({"name": item["name"], "id": item["id"], "image_id": item["cover"]["image_id"]})
     return l
 
 def get_game_by_id(id):
