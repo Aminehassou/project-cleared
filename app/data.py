@@ -11,7 +11,7 @@ def get_games(query):
     for item in request:
         print(item)
         if "cover" not in item:
-            item["cover"] = {"image_id": "co1q1f"}
+            item["cover"] = {"image_id": None}
         l.append({"name": item["name"], "id": item["id"], "image_id": item["cover"]["image_id"]})
     return l
 

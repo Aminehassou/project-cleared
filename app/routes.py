@@ -35,11 +35,12 @@ def before_request():
 def browse_games():
 
     query = request.args.get("query")
-    for a in request.args:
-        print(a, request.args.get(a))
+
     games = get_games(query)
     for game in games:
         game["url"] = url_for("get_game", api_id = game["id"])
+        game["image_url"] = Game.generate_image_url(game["image_id"])
+        
     return jsonify(games)
 
 @app.route("/")
@@ -128,7 +129,11 @@ def get_game(api_id):
         dev_info = filter_devs(game_info)
         name = game_info["name"]
         date = datetime.datetime.fromtimestamp(game_info["first_release_date"]).strftime('%Y-%m-%d %H:%M:%S')
-        cover_id = game_info["cover"]["image_id"]
+        if "cover" not in game_info:
+            image_id = None
+        else:
+            image_id = game_info["cover"]["image_id"]
+
         platforms_list = []
         if "platforms" in game_info:
             for platform in game_info["platforms"]:
@@ -143,7 +148,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name, image_id = cover_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date)
+        game = Game(api_id = api_id, title = name, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date)
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()
@@ -190,6 +195,16 @@ def edit_game_info():
         db.session.commit()
         flash('Your changes have been saved.', "success")
     return redirect(url_for("user", username=current_user.username))
+
+@app.route('/game/delete', methods=['POST'])
+@login_required
+def delete_game():
+    user_game_id = request.form['user_game_id']
+    User_game.query.filter_by(id=user_game_id, user_id=current_user.id).delete()
+    db.session.commit()
+    flash("Game successfully removed!", "success")
+    return redirect(url_for("user", username=current_user.username))
+
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])

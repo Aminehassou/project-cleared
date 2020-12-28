@@ -9,7 +9,7 @@
                 <div class="col-lg-2">
                     <div class="position-sticky">
                         <div class="">
-                            <img class="img-fluid" src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ game.image_id }}.jpg" alt="">
+                            <img class="img-fluid" src="{{game.get_image_url()}}" alt="">
                         </div>
                         <h3 class="mt-4 mb-3">{{ game.title }}
                         </h3>

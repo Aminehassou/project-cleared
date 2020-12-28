@@ -28,7 +28,7 @@
             pending: '<div class="ml-1">Loading results...</div>',
             suggestion: function(data) {
                 console.log(data);
-                return `<div><img src="https://images.igdb.com/igdb/image/upload/t_cover_small/${data.image_id}.jpg" height="50"> ${data.name}</div>`;
+                return `<div><img src="${data.image_url}" height="50"> ${data.name}</div>`;
             }
         }
     });
@@ -46,6 +46,12 @@
         currTarget.val(selectedName);
         window.location.replace(gameUrl);
     });
+    $('#autocomplete').bind('typeahead:cursorchange', function (obj, suggestion) {
+        let currTarget = $(obj.currentTarget);
+        console.log("cursorchange");
+        currTarget.val(suggestion.name);
+
+    });
 
 
     $('#edit-game').on('show.bs.modal', function (e) {
@@ -61,5 +67,17 @@
         currentTarget.find('#platform input').val(platform);
         currentTarget.find('#user_game_id').val(userGameId);
       })
+    $('.delete-game').on('click', function (e) {
+        if (confirm('Are you sure you want to delete this game from your list?')) {
+            // Delete it!
+            let target = $(e.currentTarget);
+            target.next('form').submit();
+            console.log('Game Deleted');
+          } else {
+            // Do nothing!
+            console.log('Game Not Deleted');
+          }
+    })
+
 })();
 

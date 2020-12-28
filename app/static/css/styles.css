@@ -56,11 +56,12 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.tt-suggestion:hover {
+.tt-suggestion:hover, .tt-cursor {
 	cursor: pointer;
 	background-color: #0097CF;
 	color: #FFFFFF;
 }
+
 .tt-suggestion p {
 	margin: 0;
 }
@@ -77,6 +78,9 @@ ul.alert {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.img-fluid.game-cover {
+	max-height: 273.16px; 
 }
 .playing {
 	/* Blue */

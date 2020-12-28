@@ -102,7 +102,7 @@ class Game(db.Model):
     title = db.Column(db.String(255))
     developer = db.Column(db.String(255))
     publisher = db.Column(db.String(255))
-    image_id = db.Column(db.String(255), unique=True, nullable=False)
+    image_id = db.Column(db.String(255), unique=True, nullable=True)
     initial_release_date = db.Column(db.DateTime, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
@@ -111,7 +111,16 @@ class Game(db.Model):
     platforms = db.relationship('Platform', secondary=game_platform, backref='games')
 
     def get_image_url(self):
-        return f"https://images.igdb.com/igdb/image/upload/t_cover_big/{self.image_id}.png"
+        image_id = self.image_id
+        if not image_id:
+            image_id = "nocover_qhhlj6"
+        return f"https://images.igdb.com/igdb/image/upload/t_cover_big/{image_id}.png"
+
+    @staticmethod    
+    def generate_image_url(image_id):
+        if not image_id:
+            image_id = "nocover_qhhlj6"
+        return f"https://images.igdb.com/igdb/image/upload/t_cover_big/{image_id}.png"
 
     def __repr__(self):
         return '<Games {}>'.format(self.title)

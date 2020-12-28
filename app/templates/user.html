@@ -23,7 +23,7 @@
                                 <div class="col-lg-2">
                                     <div class="osahan-card mt-3">
                                        <a href="{{url_for('display_game', id=u_game.game.id)}}">
-                                          <img class="img-fluid" src="{{u_game.game.get_image_url()}}" alt="">
+                                          <img class="img-fluid game-cover" src="{{u_game.game.get_image_url()}}" alt="">
                                           <div class="osahan-card-body mt-3">
                                              <h6 class="text-dark mb-1">{{u_game.game.title}}</h6>
                                           </div>
@@ -47,6 +47,10 @@
                                                  data-user-game-id="{{u_game.id}}" 
                                                  data-target="#edit-game" class="edit-game" href="javascript:;" title="Modify Clear Status"><i class="feather-edit mr-1"></i>
                                                 </a>
+                                                <a href="javascript:;" class="delete-game"><i class="feather-trash-2 mr-1"></i></a>
+                                                <form action="{{url_for('delete_game')}}" method="POST">
+                                                    <input type="hidden" class="user-game-delete-id" name="user_game_id" value="{{u_game.id}}">
+                                                </form>
                                            </div> 
                                        </div>                                      
                                     </div>
