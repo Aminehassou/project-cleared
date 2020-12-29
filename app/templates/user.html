@@ -23,7 +23,9 @@
                                 <div class="col-lg-2">
                                     <div class="osahan-card mt-3">
                                        <a href="{{url_for('display_game', id=u_game.game.id)}}">
-                                          <img class="img-fluid game-cover" src="{{u_game.game.get_image_url()}}" alt="">
+                                           <div class="img-container">
+                                                <img class="img-fluid game-cover" src="{{u_game.game.get_image_url()}}" alt="">                                              
+                                           </div>
                                           <div class="osahan-card-body mt-3">
                                              <h6 class="text-dark mb-1">{{u_game.game.title}}</h6>
                                           </div>

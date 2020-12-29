@@ -104,7 +104,6 @@
                                             {% endif %}
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
@@ -120,9 +119,12 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
+                            <h5 class="mb-3 mt-4"> Recently Added</h5>
+                            {% for recent_u_game in recently_added_games %}
+                                <img class="rounded-circle" src="{{ recent_u_game.user.avatar(30) }}">
+                                <div class="text-dark mr-1"> {{recent_u_game.user.username}} </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

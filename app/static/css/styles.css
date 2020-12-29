@@ -79,8 +79,12 @@ ul.alert {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.img-fluid.game-cover {
-	max-height: 273.16px; 
+.osahan-card .img-container {
+	height: 274px;
+	text-align: center;
+}
+.osahan-card .img-container img {
+	max-height: 100%;
 }
 .playing {
 	/* Blue */

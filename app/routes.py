@@ -160,6 +160,7 @@ def get_game(api_id):
 def display_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
+    recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(5).all()
     has_platforms = True
     if not game.platforms:
         has_platforms = False
@@ -175,7 +176,7 @@ def display_game(id):
     else:
         flash("This game already exists in your list!", "danger")
     platforms = ", ".join([platform.title for platform in game.platforms])
-    return render_template("game.html", game=game, platforms=platforms, form=form, has_platforms = has_platforms)
+    return render_template("game.html", game=game, platforms=platforms, form=form, has_platforms = has_platforms, recently_added_games = recently_added_games)
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
