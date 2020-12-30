@@ -86,6 +86,9 @@ ul.alert {
 .osahan-card .img-container img {
 	max-height: 100%;
 }
+.box-container {
+	height: 200px;
+}
 .playing {
 	/* Blue */
 	filter: invert(9%) sepia(96%) saturate(6955%) hue-rotate(238deg) brightness(113%) contrast(120%);

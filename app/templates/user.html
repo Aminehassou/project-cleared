@@ -33,13 +33,7 @@
                                        <p class="m-0 text-muted">{{u_game.platform.title}}</p>
                                        <div class="row">
                                            <div class="col-8">
-                                              {% if u_game.clear_status.name == u_game.clear_status.FULL_CLEARED.name %}
-                                              <p class="m-0 text-muted cleared100"> {{u_game.clear_status}} <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></p>
-                                              {% elif u_game.clear_status.name == u_game.clear_status.CLEARED.name %}
-                                              <p class="m-0 text-muted cleared"> {{u_game.clear_status}} <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></p>
-                                              {% else %}
-                                              <p class="m-0 text-muted playing"> {{u_game.clear_status}} <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></p>
-                                              {% endif %}
+                                            {% include 'clear_status_display.html' %}
                                            </div>
                                            <div class="col-4 text-right">
                                               <a data-toggle="modal"

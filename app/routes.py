@@ -160,7 +160,7 @@ def get_game(api_id):
 def display_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
-    recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(5).all()
+    recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(3).all()
     has_platforms = True
     if not game.platforms:
         has_platforms = False
