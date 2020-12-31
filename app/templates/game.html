@@ -5,10 +5,11 @@
     <!-- Navigation -->
     <section class="py-5 store-single-page">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-lg-2">
                     <div class="position-sticky">
-                        <div class="">
+                        <div>
                             <img class="img-fluid" src="{{game.get_image_url()}}" alt="">
                         </div>
                         <h3 class="mt-4 mb-3">{{ game.title }}
@@ -23,77 +24,96 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-10">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="box-container">
-                                <h5 class="mb-3 mt-4"> About Game</h5>
-                                <div class="p-5 bg-dark h-100">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="list-icon mb-3">
-                                                <p class="text-muted mb-1">Developer</p>
-                                                {% if game.developer %}
-                                                <p class="text-dark">{{ game.developer }}</p>
-                                                {% else %}
-                                                <p class="text-dark">N/A</p>
-                                                {% endif %}
+                            <h5 class="mb-3 mt-4"> Description</h5>
+                            <div class="mb-3 p-3 bg-dark">
+                                {% if game.summary %}
+                                {{game.summary}}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="box-container">
+                                        <h5 class="mb-3 mt-3"> About Game</h5>
+                                        <div class="mb-3 p-4 bg-dark h-100">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="list-icon mb-3">
+                                                        <p class="text-muted mb-1">Developer</p>
+                                                        {% if game.developer %}
+                                                        <p class="text-dark">{{ game.developer }}</p>
+                                                        {% else %}
+                                                        <p class="text-dark">N/A</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="list-icon mb-3">
+                                                        <p class="text-muted mb-1">Publisher</p>
+                                                        {% if game.publisher %}
+                                                        <p class="text-dark">{{ game.publisher }}</p>
+                                                        {% else %}
+                                                        <p class="text-dark">N/A</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="list-icon mb-3">
-                                                <p class="text-muted mb-1">Publisher</p>
-                                                {% if game.publisher %}
-                                                <p class="text-dark">{{ game.publisher }}</p>
-                                                {% else %}
-                                                <p class="text-dark">N/A</p>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="list-icon mb-3">
-                                                <p class="text-muted mb-1">Release Date</p>
-                                                <p class="text-dark">{{ game.initial_release_date.strftime("%B %d, %Y")
-                                                    }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="list-icon mb-3">
-                                                <p class="text-muted mb-1">Platform</p>
-                                                <div class="text-dark">{{ platforms }}</div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="list-icon mb-3">
+                                                        <p class="text-muted mb-1">Release Date</p>
+                                                        <p class="text-dark">{{ game.initial_release_date.strftime("%B %d, %Y")
+                                                            }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="list-icon mb-3">
+                                                        <p class="text-muted mb-1">Platform</p>
+                                                        <div class="text-dark">{{ platforms }}</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="box-container">
+                                <h5 class="mb-3 mt-3"> Recent Players</h5>
+                                <div class="p-3 bg-dark h-100">
+                                    <table class="table">
+                                        <tbody>
+                                            {% for recent_u_game in recently_added_games %}
+                                            <tr>
+                                                <td>
+                                                    <img class="rounded-circle" src="{{ recent_u_game.user.avatar(30) }}">
+                                                    <a href="{{url_for('user', username=recent_u_game.user.username)}}">{{recent_u_game.user.username}}</a>
+                                                </td>
+                                                <td>{{recent_u_game.platform.title}}</td>
+                                                <td>
+                                                    {% with u_game = recent_u_game %}
+                                                        {% include 'clear_status_display.html' %}
+                                                    {% endwith %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>            
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="box-container">
-                        <h5 class="mb-3 mt-4"> Recent Players</h5>
-                        <div class="p-3 bg-dark h-100">
-                            <table class="table">
-                                <tbody>
-                                    {% for recent_u_game in recently_added_games %}
-                                    <tr>
-                                        <td>
-                                            <img class="rounded-circle" src="{{ recent_u_game.user.avatar(30) }}">
-                                            <a href="{{url_for('user', username=recent_u_game.user.username)}}">{{recent_u_game.user.username}}</a>
-                                        </td>
-                                        <td>{{recent_u_game.platform.title}}</td>
-                                        <td>
-                                            {% with u_game = recent_u_game %}
-                                                {% include 'clear_status_display.html' %}
-                                            {% endwith %}
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>            
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="mb-3 mt-3"> Websites</h5>
+                        </div>
                     </div>
                 </div>
             </div>

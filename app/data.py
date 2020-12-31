@@ -17,5 +17,5 @@ def get_games(query):
 
 def get_game_by_id(id):
     r = requests.post("https://api.igdb.com/v4/games",  
-                headers = {"Client-ID": Config.CLIENT_ID, "Authorization": "Bearer {}".format(Config.API_AUTH)}, data = 'fields name, involved_companies.developer, involved_companies.publisher, involved_companies.company.name, platforms.name, cover.image_id, first_release_date; where id = {}; limit 1;'.format(id))
+                headers = {"Client-ID": Config.CLIENT_ID, "Authorization": "Bearer {}".format(Config.API_AUTH)}, data = 'fields name, summary, involved_companies.developer, involved_companies.publisher, involved_companies.company.name, platforms.name, cover.image_id, first_release_date; where id = {}; limit 1;'.format(id))
     return r.json()[0]

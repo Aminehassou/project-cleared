@@ -100,6 +100,7 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     api_id = db.Column(db.String(255), unique=True, nullable=False)
     title = db.Column(db.String(255))
+    summary = db.Column(db.Text)
     developer = db.Column(db.String(255))
     publisher = db.Column(db.String(255))
     image_id = db.Column(db.String(255), unique=True, nullable=True)

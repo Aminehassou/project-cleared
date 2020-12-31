@@ -122,7 +122,6 @@ def logout():
 def get_game(api_id):
     game = Game.query.filter_by(api_id = api_id).first()
     if not game:
-        
         game_info = get_game_by_id(api_id)
         print(game_info)
         print(game_info)
@@ -133,6 +132,11 @@ def get_game(api_id):
             image_id = None
         else:
             image_id = game_info["cover"]["image_id"]
+
+        if "summary" not in game_info:
+            summary = None
+        else:
+            summary = game_info["summary"]
 
         platforms_list = []
         if "platforms" in game_info:
@@ -148,7 +152,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date)
+        game = Game(api_id = api_id, title = name, summary=summary, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date)
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()

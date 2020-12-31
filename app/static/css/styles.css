@@ -89,6 +89,9 @@ ul.alert {
 .box-container {
 	height: 200px;
 }
+.table tr:first-child td {
+	border-top: none;
+}
 .playing {
 	/* Blue */
 	filter: invert(9%) sepia(96%) saturate(6955%) hue-rotate(238deg) brightness(113%) contrast(120%);
