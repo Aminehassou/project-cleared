@@ -21,7 +21,7 @@
                                         <div class="form-group">
                                             
                                             {{ form.username.label }}<br>
-                                            {{ form.username(size=32, class='form-control form-control-lg', placeholder='Enter your new username') }}
+                                            {{ form.username(size=32, class='form-control form-control-lg', placeholder='Enter your new username', readonly=True, disabled=True) }}
                                             {% for error in form.username.errors %}
                                             <h6 class="text-danger">[{{ error }}]</h6>
                                             {% endfor %}

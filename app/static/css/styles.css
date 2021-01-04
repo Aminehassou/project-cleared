@@ -86,9 +86,11 @@ ul.alert {
 .osahan-card .img-container img {
 	max-height: 100%;
 }
+
 .box-container {
-	height: 200px;
+
 }
+
 .table tr:first-child td {
 	border-top: none;
 }

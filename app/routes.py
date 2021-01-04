@@ -4,6 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required, L
 from werkzeug.urls import url_parse
 from time import strftime
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import func, desc
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, EditProfileForm, AddGameForm, EditGameForm
 from app.data import get_games, get_game_by_id
 from app.models import User, Game, Platform, User_game
@@ -45,7 +46,14 @@ def browse_games():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    top_games = db.session.query(User_game.game_id, Game.title, Game.image_id, func.count(User_game.game_id).label("count"))\
+        .filter(User_game.game_id == Game.id)\
+        .group_by(User_game.game_id)\
+        .order_by(desc("count"))\
+        .limit(4).all()
+    print(top_games)
+
+    return render_template("index.html", top_games=top_games, Game=Game)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -218,7 +226,6 @@ def edit_profile():
     user = User.query.filter_by(username=current_user.username).first_or_404()
     form = EditProfileForm(obj=current_user, original_username=current_user.username) 
     if form.validate_on_submit():
-        current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
         flash('Your changes have been saved.', "success")
