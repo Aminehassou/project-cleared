@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required, L
 from werkzeug.urls import url_parse
 from time import strftime
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy import func, desc
+from sqlalchemy import func, desc, or_
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, EditProfileForm, AddGameForm, EditGameForm
 from app.data import get_games, get_game_by_id
 from app.models import User, Game, Platform, User_game
@@ -46,14 +46,26 @@ def browse_games():
 
 @app.route("/")
 def home():
+    user_count = db.session.query(func.count(User.id)).first()[0]
+
     top_games = db.session.query(User_game.game_id, Game.title, Game.image_id, func.count(User_game.game_id).label("count"))\
         .filter(User_game.game_id == Game.id)\
         .group_by(User_game.game_id)\
         .order_by(desc("count"))\
         .limit(4).all()
-    print(top_games)
 
-    return render_template("index.html", top_games=top_games, Game=Game)
+    clear_status_info = db.session.query(User_game.clear_status.name, func.count(User_game.clear_status))\
+        .group_by(User_game.clear_status).all()
+
+    added_games_count = 0
+    status_info = {}
+
+    for status in clear_status_info:
+        added_games_count += status[1]
+        status_info[status[0]] = status[1]
+
+    return render_template("index.html", top_games=top_games, Game=Game, added_games_count=added_games_count,
+                                         clear_status_info=clear_status_info, user_count=user_count, status_info=status_info)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

@@ -40,14 +40,15 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-4">
-                            <div class="gradient-1 gradient-block">
+                            <div class="gradient-1 gradient-block h-100">
                                 <div class="row align-items-center">
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-12">
                                         <div class="p-5">
-                                            <h1 class="mb-4 text-white">Global Stats
-                                            </h1>
-                                            <h6 class="font-weight-normal text-white-50 mb-4">Stats
-                                            </h6>
+                                            <h1 class="mb-4 text-white">Global Stats</h1>
+                                            <h5 class="font-weight-normal text-white-50 mb-4"><i class="feather-users mr-1"></i> {{user_count}} Users </h5><hr>
+                                            <h5 class="font-weight-normal text-white-50 mb-4"><i class="feather-plus mr-1"></i> {{added_games_count}} Games Added </h5><hr>
+                                            <h5 class="font-weight-normal text-white-50 mb-4"><i class="feather-check mr-1"></i> {{status_info["CLEARED"]}} Games Completed </h5><hr>
+                                            <h5 class="font-weight-normal text-white-50 mb-4"><i class="feather-check-circle mr-1"></i> {{status_info["FULL_CLEARED"]}} Games Fully Completed </h5><hr>
                                         </div>
                                     </div>
                                 </div>
