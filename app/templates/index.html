@@ -80,6 +80,45 @@
                     </div>
                 </div>
             </section>
+            <section class="pb-5">
+                <div class="container-fluid">
+                   <div class="row">
+                      <div class="col-lg-12">
+                         <div class="gradient-2 gradient-block">
+                            <div class="row align-items-center">
+                               <div class="col-lg-5">
+                                  <div class="p-5">
+                                     <h1 class="mb-4 text-white">How does it work?
+                                     </h1>
+                                     <h5 class="font-weight-normal text-white mb-4">
+                                        There's 3 types of clear statuses for games in your backlog. Modifying these statuses will help you keep track
+                                        of which games you're currently playing and which games you've completed.
+                                     </h5>
+                                     <h4> Playing <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></h4>
+                                     <h5 class="font-weight-normal text-white mb-4">
+                                        The game has not been cleared yet and is still being played by the user
+                                     </h5>
+                                     <h4 class="cleared"> Cleared <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></h4>
+                                     <h5 class="font-weight-normal text-white mb-4">
+                                        The game has been cleared by the user (does not include optional content)
+                                     </h5>
+                                     <h4 class="cleared100"> 100% Cleared <img src="{{url_for('static', filename='icons/gamepad.svg')}}"></h4>
+                                     <h5 class="font-weight-normal text-white mb-4">
+                                        The game has been fully cleared by the user (includes all optional content)
+                                     </h5>
+
+
+                                  </div>
+                               </div>
+                               <div class="col-lg-7">
+                                  <img class="img-fluid" src="{{url_for('static', filename='img/tv_ass_creed_unity.jpg')}}" alt="">
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </section>
         </div>
     </main>
 {% endblock %}
