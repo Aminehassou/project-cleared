@@ -29,11 +29,10 @@
             <div class="input-group game-search">
                <input type="text"
                       autocomplete="off" 
-                      class="form-control shadow-none border-0" 
+                      class="form-control shadow-none border-0 autocomplete" 
                       placeholder="Search..." 
                       aria-label="Search" 
-                      aria-describedby="basic-addon2" 
-                      id="autocomplete">
+                      aria-describedby="basic-addon2">
                <div class="input-group-append">
                   <button class="btn btn-dark" type="button">
                   <i class="feather-search"></i>
@@ -50,8 +49,13 @@
                <!-- Dropdown - Messages -->
                <div class="dropdown-menu dropdown-menu-right p-3 shadow-sm animated--grow-in" aria-labelledby="searchDropdown">
                   <form class="form-inline mr-auto w-100 navbar-search">
-                     <div class="input-group">
-                        <input type="text" class="form-control border-0 shadow-none" placeholder="Search people, jobs and more..." aria-label="Search" aria-describedby="basic-addon2">
+                     <div class="input-group game-search">
+                        <input type="text" 
+                               class="form-control border-0 shadow-none autocomplete" 
+                               placeholder="Search..." 
+                               aria-label="Search" 
+                               aria-describedby="basic-addon2" 
+                               autocomplete="off">
                         <div class="input-group-append">
                            <button class="btn" type="button">
                            <i class="feather-search"></i>

@@ -33,7 +33,9 @@ class GameStatus(enum.Enum):
 
 class User_game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    
     clear_status = db.Column(db.Enum(GameStatus), default=GameStatus.PLAYING.value, nullable=False)
+    note = db.Column(db.Text)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'))

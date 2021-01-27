@@ -13,7 +13,7 @@
     });
     
 
-    $('#autocomplete').typeahead({
+    $('.autocomplete').typeahead({
         hint: true,
         highlight: true,
         minLength: 1
@@ -35,18 +35,18 @@
 
     let selectedName = '';
     let gameUrl = '';
-    $('#autocomplete').bind('typeahead:select', function (ev, suggestion) {
+    $('.autocomplete').bind('typeahead:select', function (ev, suggestion) {
         console.log("suggestion", suggestion);
         selectedName = suggestion.name;
         gameUrl = suggestion.url;
     });
-    $('#autocomplete').bind('typeahead:close', function (obj) {
+    $('.autocomplete').bind('typeahead:close', function (obj) {
         let currTarget = $(obj.currentTarget);
         console.log("closed");
         currTarget.val(selectedName);
         window.location.replace(gameUrl);
     });
-    $('#autocomplete').bind('typeahead:cursorchange', function (obj, suggestion) {
+    $('.autocomplete').bind('typeahead:cursorchange', function (obj, suggestion) {
         let currTarget = $(obj.currentTarget);
         console.log("cursorchange");
         currTarget.val(suggestion.name);
