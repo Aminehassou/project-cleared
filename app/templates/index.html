@@ -4,30 +4,21 @@
         <div class="container-fluid-fluid">
             <!-- Navigation -->
             <section class="pb-5">
-                <div class="container-fluid px-0">
+                <div class="container-fluid">
                     <div class="row m-0">
-                        <div class="col-lg-12 px-0">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner" role="listbox">
-                                    <div class="carousel-item active">
-                                        <div class="osahan-slider">
-                                            <div class="bg-dark">
-                                                <div class="row align-items-center">
-                                                    <div class="col-lg-8 px-0">
-                                                        <img class="img-fluid" src="img/slider/6.jpg" alt="">
-                                                    </div>
-                                                    <div class="col-lg-4 px-0">
-                                                        <div class="p-5">
-                                                            <small class="text-muted">Welcome to</small>
-                                                            <h3 class="my-4">Project Cleared
-                                                            </h3>
-                                                            <p class="font-weight-normal mb-4 text-muted">Track your gaming backlog and compete to complete the most games!
-                                                            </p>
-                                                            <a href="register" class="btn btn-primary">Get Started</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="col-lg-12">
+                            <div class="bg-dark get-started-text">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-8 get-started-image" style="background-image:url({{url_for('static', filename='img/journey.png')}})  ;">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="p-5">
+                                            <small class="text-muted">Welcome to</small>
+                                            <h3 class="my-3">Project Cleared
+                                            </h3>
+                                            <p class="font-weight-normal mb-4 text-muted">Track your gaming backlog and compete with other people to complete the most games!
+                                            </p>
+                                            <a href="register" class="btn btn-primary">Get Started</a>
                                         </div>
                                     </div>
                                 </div>

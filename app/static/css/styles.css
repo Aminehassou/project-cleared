@@ -110,11 +110,22 @@ ul.alert {
 }
 .how-to-image {
 	background-size: cover;
-	background-color: rgba(23, 37, 201, 0.42);
+	background-color: rgba(23, 38, 201, 0.486);
     background-position-y: -150px;
     padding-top: 100px;
     padding-bottom: 100px;
     background-blend-mode: overlay;
+}
+.get-started-image {
+	background-size: cover;
+	background-position-y: -40px;
+	background-color: rgba(183, 185, 201, 0.397);
+    padding-top: 385px;
+    padding-bottom: 200px;
+    background-blend-mode: overlay;	
+}
+.get-started-text {
+	font-size: 150%;
 }
 .game-search input.form-control {
 	width: 300px;
