@@ -185,6 +185,7 @@ def display_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
     recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(3).all()
+    recently_added_notes = User_game.query.filter(User_game.game_id==id, func.coalesce(User_game.note, '') != '').order_by(User_game.modified_at).limit(3).all()
     has_platforms = True
     if not game.platforms:
         has_platforms = False
@@ -193,14 +194,20 @@ def display_game(id):
     user_game = User_game.query.filter_by(game_id=id, platform_id=form.platform.data, user_id=current_user.id).first()
     if not user_game:
         if form.validate_on_submit():
-            user = User_game(clear_status=form.status.data, game_id=id, platform_id=form.platform.data, user_id=current_user.id )
+            user = User_game(clear_status=form.status.data, note=form.note.data, game_id=id, platform_id=form.platform.data, user_id=current_user.id )
             db.session.add(user)    
             db.session.commit()
             flash("You have successfully added the game!", "success")
     else:
         flash("This game already exists in your list!", "danger")
     platforms = ", ".join([platform.title for platform in game.platforms])
-    return render_template("game.html", game=game, platforms=platforms, form=form, has_platforms = has_platforms, recently_added_games = recently_added_games)
+    print(recently_added_notes)
+    return render_template("game.html", game=game, 
+        platforms=platforms,
+        form=form,
+        has_platforms = has_platforms, 
+        recently_added_games = recently_added_games,
+        recently_added_notes = recently_added_notes)
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
@@ -216,6 +223,7 @@ def edit_game_info():
     form = EditGameForm() 
     if form.validate_on_submit():
         edited_game = User_game.query.filter_by(id=form.user_game_id.data).first()
+        print(edited_game)
         form.populate_obj(edited_game)
         db.session.commit()
         flash('Your changes have been saved.', "success")

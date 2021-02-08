@@ -127,6 +127,10 @@ ul.alert {
 .get-started-text {
 	font-size: 150%;
 }
+.game-note-cell{
+	max-width:200px;
+    word-wrap:break-word;
+}
 .game-search input.form-control {
 	width: 300px;
 }

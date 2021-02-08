@@ -51,7 +51,7 @@ class User_game(db.Model):
     platform = db.relationship('Platform', backref='platform')
 
     def __repr__(self):
-        return '<User_game {}>'.format(self.clear_status)
+        return '<User_game {} {}>'.format(self.clear_status, self.note)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

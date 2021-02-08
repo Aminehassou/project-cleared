@@ -40,11 +40,13 @@ class ResetPasswordForm(FlaskForm):
 class AddGameForm(FlaskForm):
     platform = SelectField('Platform', choices=[], coerce=int)
     status = SelectField('Status', choices=GameStatus.choices())
+    note = TextAreaField('Note')
     submit = SubmitField('Add Game')
 
 class EditGameForm(FlaskForm):
     user_game_id = HiddenField('User_game_id')
     clear_status = SelectField('Status', choices=GameStatus.choices())
+    note = TextAreaField('Note')
     submit = SubmitField('Save Changes')
 
 class EditProfileForm(FlaskForm):

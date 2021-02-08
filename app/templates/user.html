@@ -36,17 +36,21 @@
                                             {% include 'clear_status_display.html' %}
                                            </div>
                                            <div class="col-4 text-right">
+                                            {% if current_user.username == u_game.user.username %}
                                               <a data-toggle="modal"
                                                  data-game-name="{{u_game.game.title}}"
                                                  data-status-id="{{u_game.clear_status.name}}"
                                                  data-platform="{{u_game.platform.title}}" 
-                                                 data-user-game-id="{{u_game.id}}" 
-                                                 data-target="#edit-game" class="edit-game" href="javascript:;" title="Modify Clear Status"><i class="feather-edit mr-1"></i>
+                                                 data-user-game-id="{{u_game.id}}"
+                                                 data-user-game-note="{{u_game.note}}" 
+                                                 data-target="#edit-game" class="edit-game" href="javascript:;" title="Modify Clear Status">
+                                                 <i class="feather-edit mr-1"></i>
                                                 </a>
                                                 <a href="javascript:;" class="delete-game"><i class="feather-trash-2 mr-1"></i></a>
                                                 <form action="{{url_for('delete_game')}}" method="POST">
                                                     <input type="hidden" class="user-game-delete-id" name="user_game_id" value="{{u_game.id}}">
                                                 </form>
+                                            {% endif %}
                                            </div> 
                                        </div>                                      
                                     </div>
@@ -82,6 +86,10 @@
                         <div class="form-group">
                             {{ form.clear_status.label }}<br>
                             {{ form.clear_status(id="status", class='form-control', placeholder='Status') }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.note.label }}<br>
+                            {{ form.note(id="note", class='form-control', placeholder='Write a note about this game') }}
                         </div>
                         <div class="form-group">
                             <label>Platform</label><br>

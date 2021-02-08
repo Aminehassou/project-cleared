@@ -115,7 +115,23 @@
                             <h5 class="mb-3 mt-3"> Recent Notes </h5>
                             <div class="box-container h-75">
                                 <div class="p-3 bg-dark h-100">
-                                    s
+                                    <table class="table">
+                                        <tbody>
+                                            {% if recently_added_notes == [] %}
+                                                No notes found...
+                                            {% endif %}
+                                            {% for recent_u_game in recently_added_notes %}
+                                            <tr>
+                                                <td>
+                                                    <img class="rounded-circle" src="{{ recent_u_game.user.avatar(30) }}">
+                                                    <a href="{{url_for('user', username=recent_u_game.user.username)}}">{{recent_u_game.user.username}}</a>
+                                                </td>
+                                                <td class="game-note-cell">{{recent_u_game.note}}</td>
+                                            </tr>
+
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -141,19 +157,22 @@
                     {{ form.errors }}
                     {% endif %}
                     <div class="form-group">
-                        <div class="form-group">
-                            {{ form.status.label }}<br>
-                            {{ form.status(class='form-control', placeholder='Status') }}
+                        {{ form.note.label }}<br>
+                        {{ form.note(class='form-control', placeholder='Write a note about this game') }}
 
-                        </div>
-                        {% if has_platforms %}
-                        <div class="form-group">
-                            {{ form.platform.label }}<br>
-                            {{ form.platform(class='form-control', placeholder='Platform') }}
-
-                        </div>
-                        {% endif %}
                     </div>
+                    <div class="form-group">
+                        {{ form.status.label }}<br>
+                        {{ form.status(class='form-control', placeholder='Status') }}
+
+                    </div>
+                    {% if has_platforms %}
+                    <div class="form-group">
+                        {{ form.platform.label }}<br>
+                        {{ form.platform(class='form-control', placeholder='Platform') }}
+
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

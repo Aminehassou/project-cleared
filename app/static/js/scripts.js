@@ -62,9 +62,11 @@
         let statusId = relatedTarget.data('status-id');
         let platform = relatedTarget.data('platform');
         let userGameId = relatedTarget.data('user-game-id');
+        let userGameNote = relatedTarget.data('user-game-note');
         currentTarget.find('#game-name input').val(gameName);
         currentTarget.find('#status').val(statusId);
         currentTarget.find('#platform input').val(platform);
+        currentTarget.find('#note').val(userGameNote);
         currentTarget.find('#user_game_id').val(userGameId);
       })
     $('.delete-game').on('click', function (e) {
