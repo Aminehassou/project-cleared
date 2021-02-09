@@ -214,6 +214,7 @@ def display_game(id):
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     user_game = User_game.query.filter_by(user_id = user.id).all()
+    print(user_game)
     form = EditGameForm()
     return render_template("user.html", user=user, user_game=user_game, form=form)
 
