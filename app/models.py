@@ -107,6 +107,7 @@ class Game(db.Model):
     publisher = db.Column(db.String(255))
     image_id = db.Column(db.String(255), unique=True, nullable=True)
     initial_release_date = db.Column(db.DateTime, nullable=False)
+    similar_games = db.Column(db.Text)
     created_at = db.Column(db.DateTime, nullable=False,
                         default=datetime.utcnow)
     modified_at = db.Column(db.DateTime, nullable=False,

@@ -143,10 +143,13 @@ def get_game(api_id):
     if not game:
         game_info = get_game_by_id(api_id)
         print(game_info)
-        print(game_info)
         dev_info = filter_devs(game_info)
         name = game_info["name"]
         date = datetime.datetime.fromtimestamp(game_info["first_release_date"]).strftime('%Y-%m-%d %H:%M:%S')
+        similar_games = []
+        for similar_game in game_info["similar_games"]:
+            similar_games.append(str("{},{}".format(similar_game["id"], similar_game["name"])))
+        print(similar_games)
         if "cover" not in game_info:
             image_id = None
         else:
@@ -171,7 +174,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name, summary=summary, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date)
+        game = Game(api_id = api_id, title = name, summary=summary, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date, similar_games=";".join(similar_games))
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()
@@ -182,6 +185,10 @@ def get_game(api_id):
 def display_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
+    d = dict(item.split(",") for item in game.similar_games.split(";"))
+    game.similar_games = d
+    print(d)
+
     recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(3).all()
     recently_added_notes = User_game.query.filter(User_game.game_id==id, func.coalesce(User_game.note, '') != '').order_by(User_game.modified_at).limit(3).all()
     if current_user.is_authenticated:

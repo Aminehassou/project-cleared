@@ -119,7 +119,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <h5 class="mb-3 mt-3"> Recent Notes </h5>
-                            <div class="box-container">
+                            <div class="box-container h-75">
                                 <div class="p-3 bg-dark h-100">
                                     <table class="table">
                                         <tbody>
@@ -132,7 +132,7 @@
                                                     <img class="rounded-circle" src="{{ recent_u_game.user.avatar(30) }}">
                                                     <a href="{{url_for('user', username=recent_u_game.user.username)}}">{{recent_u_game.user.username}}</a>
                                                 </td>
-                                                <td class="game-note-cell">{{recent_u_game.note|truncate(600, true)}}</td>
+                                                <td class="game-note-cell">{{recent_u_game.note|truncate(306, true)}}</td>
                                             </tr>
 
                                             {% endfor %}
@@ -142,10 +142,12 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h5 class="mb-3 mt-3"> Recent Notes </h5>
+                            <h5 class="mb-3 mt-3"> Similar Games </h5>
                             <div class="box-container">
                                 <div class="p-3 bg-dark h-100">
-                                    s
+                                    {% for key, value in game.similar_games.items() %}
+                                    <a href="{{url_for('get_game', api_id=key)}}">{{ value }}</a> <br>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
