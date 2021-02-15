@@ -145,6 +145,7 @@
                             <h5 class="mb-3 mt-3"> Similar Games </h5>
                             <div class="box-container">
                                 <div class="p-3 bg-dark h-100">
+                                    {{game.similar_games}}
                                     {% for key, value in game.similar_games.items() %}
                                     <a href="{{url_for('get_game', api_id=key)}}">{{ value }}</a> <br>
                                     {% endfor %}

@@ -9,7 +9,6 @@ def get_games(query):
                 headers = {"Client-ID": Config.CLIENT_ID, "Authorization": "Bearer {}".format(Config.API_AUTH)}, data = 'fields name, platforms.name, cover.image_id; where name ~ *"{}"* & rating != null; sort rating desc; limit 10;'.format(query))
     request = r.json()
     for item in request:
-        print(item)
         if "cover" not in item:
             item["cover"] = {"image_id": None}
         l.append({"name": item["name"], "id": item["id"], "image_id": item["cover"]["image_id"]})

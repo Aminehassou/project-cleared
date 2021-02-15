@@ -142,14 +142,14 @@ def get_game(api_id):
     game = Game.query.filter_by(api_id = api_id).first()
     if not game:
         game_info = get_game_by_id(api_id)
-        print(game_info)
         dev_info = filter_devs(game_info)
         name = game_info["name"]
         date = datetime.datetime.fromtimestamp(game_info["first_release_date"]).strftime('%Y-%m-%d %H:%M:%S')
         similar_games = []
         for similar_game in game_info["similar_games"]:
             similar_games.append(str("{},{}".format(similar_game["id"], similar_game["name"])))
-        print(similar_games)
+            print(similar_games)
+
         if "cover" not in game_info:
             image_id = None
         else:
@@ -185,10 +185,7 @@ def get_game(api_id):
 def display_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
-    d = dict(item.split(",") for item in game.similar_games.split(";"))
-    game.similar_games = d
-    print(d)
-
+    game.similar_games = dict(item.split(",", 1) for item in game.similar_games.split(";"))
     recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(3).all()
     recently_added_notes = User_game.query.filter(User_game.game_id==id, func.coalesce(User_game.note, '') != '').order_by(User_game.modified_at).limit(3).all()
     if current_user.is_authenticated:
@@ -221,7 +218,6 @@ def display_game(id):
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     user_game = User_game.query.filter_by(user_id = user.id).all()
-    print(user_game)
     form = EditGameForm()
     return render_template("user.html", user=user, user_game=user_game, form=form)
 
@@ -231,7 +227,6 @@ def edit_game_info():
     form = EditGameForm() 
     if form.validate_on_submit():
         edited_game = User_game.query.filter_by(id=form.user_game_id.data).first()
-        print(edited_game)
         form.populate_obj(edited_game)
         db.session.commit()
         flash('Your changes have been saved.', "success")
