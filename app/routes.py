@@ -70,7 +70,8 @@ def home():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        flash("You've already registered!", "danger")
+        return redirect(url_for("home"))
         
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -85,7 +86,8 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        flash("You're already logged in!", "danger")
+        return redirect(url_for("home"))
         
     form = LoginForm()
     if form.validate_on_submit():
@@ -145,10 +147,11 @@ def get_game(api_id):
         dev_info = filter_devs(game_info)
         name = game_info["name"]
         date = datetime.datetime.fromtimestamp(game_info["first_release_date"]).strftime('%Y-%m-%d %H:%M:%S')
-        similar_games = []
-        for similar_game in game_info["similar_games"]:
-            similar_games.append(str("{},{}".format(similar_game["id"], similar_game["name"])))
-            print(similar_games)
+
+        if "similar_games" not in game_info:
+            similar_games = None
+        else:
+            similar_games = game_info["similar_games"]
 
         if "cover" not in game_info:
             image_id = None
@@ -174,7 +177,7 @@ def get_game(api_id):
                     print("You can't add this platform (it already exists)")
                 platforms_list.append(p)
 
-        game = Game(api_id = api_id, title = name, summary=summary, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date, similar_games=";".join(similar_games))
+        game = Game(api_id = api_id, title = name, summary=summary, image_id = image_id, developer = dev_info["developers"], publisher = dev_info["publishers"], initial_release_date = date, similar_games=similar_games)
         game.platforms = platforms_list
         db.session.add(game)
         db.session.commit()
@@ -185,15 +188,17 @@ def get_game(api_id):
 def display_game(id):
     form = AddGameForm()
     game = Game.query.filter_by(id = id).first()
-    game.similar_games = dict(item.split(",", 1) for item in game.similar_games.split(";"))
     recently_added_games = User_game.query.filter_by(game_id=id).order_by(User_game.modified_at).limit(3).all()
     recently_added_notes = User_game.query.filter(User_game.game_id==id, func.coalesce(User_game.note, '') != '').order_by(User_game.modified_at).limit(3).all()
+    has_platforms = True
+
+    if not game.platforms:
+        has_platforms = False
+
+    for platform in game.platforms:
+        form.platform.choices.append((platform.id, platform.title))
+
     if current_user.is_authenticated:
-        has_platforms = True
-        if not game.platforms:
-            has_platforms = False
-        for platform in game.platforms:
-            form.platform.choices.append((platform.id, platform.title))
         user_game = User_game.query.filter_by(game_id=id, platform_id=form.platform.data, user_id=current_user.id).first()
         if not user_game:
             if form.validate_on_submit():
@@ -203,15 +208,15 @@ def display_game(id):
                 flash("You have successfully added the game!", "success")
         else:
             flash("This game already exists in your list!", "danger")
-        platforms = ", ".join([platform.title for platform in game.platforms])
-        return render_template("game.html", game=game, 
-            platforms=platforms,
-            form=form,
-            has_platforms = has_platforms, 
-            recently_added_games = recently_added_games,
-            recently_added_notes = recently_added_notes)
 
-    return render_template("game.html", game=game, form=form, recently_added_games = recently_added_games, recently_added_notes = recently_added_notes)
+    platforms = ", ".join([platform.title for platform in game.platforms])
+
+    return render_template("game.html", game=game, 
+        platforms=platforms,
+        form=form,
+        has_platforms = has_platforms, 
+        recently_added_games = recently_added_games,
+        recently_added_notes = recently_added_notes)
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required

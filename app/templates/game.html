@@ -142,15 +142,17 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h5 class="mb-3 mt-3"> Similar Games </h5>
-                            <div class="box-container">
-                                <div class="p-3 bg-dark h-100">
-                                    {{game.similar_games}}
-                                    {% for key, value in game.similar_games.items() %}
-                                    <a href="{{url_for('get_game', api_id=key)}}">{{ value }}</a> <br>
-                                    {% endfor %}
+                            {% if not game.similar_games %}
+                            {% else %}
+                                <h5 class="mb-3 mt-3"> Similar Games </h5>
+                                <div class="box-container">
+                                    <div class="p-3 bg-dark h-100">
+                                        {% for similar_game in game.similar_games %}
+                                            <a href="{{url_for('get_game', api_id=similar_game['id'])}}">{{similar_game['name']}}</a> <br>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
