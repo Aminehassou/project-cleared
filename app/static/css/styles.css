@@ -74,6 +74,9 @@ ul.alert {
 .sb-topnav {
 	padding-left: 15px !important;
 }
+.sb-topnav .navbar-brand {
+	width: 155px !important;
+}
 .osahan-card p {
     overflow: hidden;
     white-space: nowrap;
